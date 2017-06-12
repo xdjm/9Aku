@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        android:enabled="false"
+        android:visible="true">
+        <item android:title="@string/developer">
+            <menu>
+                <item
+                    android:id="@+id/author_item"
+                    android:icon="@drawable/vector_navi_coder"
+                    android:title="@string/author_name">
+                </item>
+                <item
+                    android:id="@+id/translater"
+                    android:icon="@drawable/vector_navi_translator"
+                    android:title="@string/translator_name">
+                </item>
+                <item
+                    android:id="@+id/viper"
+                    android:icon="@drawable/vector_navi_viper"
+                    android:title="@string/viper">
+                </item>
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="@string/communicatename">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/vector_navi_openedcode"
+                android:title="@string/linsences_name" />
+            <item
+                android:id="@+id/nav_crash"
+                android:icon="@drawable/vector_navi_crash"
+                android:title="@string/about" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_magin">12dp</dimen>
+    <dimen name="bottom_navigation_height">45dp</dimen>
+    <dimen name="bottom_navigation_small_margin_top">10dp</dimen>
+</resources>

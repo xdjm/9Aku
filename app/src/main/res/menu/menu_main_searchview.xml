@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_change_colors"
+        android:title="@string/action_change_colors"
+        android:orderInCategory="4"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/vector_main_night"/>
+</menu>

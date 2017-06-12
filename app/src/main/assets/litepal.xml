@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="ULvLibFromAKu" />
+    <version value="1" />
+    <list>
+        <mapping class="com.xd.commander.aku.bean.Detail"/>
+        <mapping class="com.xd.commander.aku.bean.Project"/>
+        <mapping class="com.xd.commander.aku.bean.GitHubUserInfo"/>
+    </list>
+</litepal>

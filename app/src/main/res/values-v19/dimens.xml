@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="app_bar_height">145dp</dimen>
+    <dimen name="fab_magin">0dp</dimen>
+</resources>
