@@ -9,6 +9,12 @@ public class Banner {
     private String subtitle;
     private String http;
 
+    public Banner(String url, String subtitle, String http) {
+        this.url = url;
+        this.subtitle = subtitle;
+        this.http = http;
+    }
+
     public String getUrl() {
         return url;
     }

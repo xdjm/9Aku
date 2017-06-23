@@ -43,9 +43,6 @@ public class ActivityLibrary extends BaseActivity {
                     ,"LitePal"
                     ,"Butter Knife"
                     ,"QingtingBannerView"
-
-
-
             };
     private String[] author =
             {

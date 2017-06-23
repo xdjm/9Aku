@@ -24,7 +24,8 @@ public class FragmentSort extends BaseFragment {
     RecyclerView mRecyclerView;
     private ArrayList<MultiItemEntity> list;
     private String[][] sort11=
-            {{"2D Engines (10)1"}
+            {
+                    {"2D Engines (10)1"}
                     , {"3D Engines (12)1"}
                     , {"9-Patch (4)1"}
                     , {"Action Bars (24)1",

@@ -14,14 +14,6 @@
         android:background="?colorPrimaryDark"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <me.wangyuwei.banner.BannerView
-            android:id="@+id/banner_view"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:visibility="gone"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
         <View
             android:background="?colorPrimaryDark"
             android:id="@+id/img"

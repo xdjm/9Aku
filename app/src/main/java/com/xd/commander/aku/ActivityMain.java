@@ -38,7 +38,6 @@ import com.xd.commander.aku.fragment.FragmentSort;
 import com.xd.commander.aku.interf.SnackerBarShow;
 import com.xd.commander.aku.util.ThemeUtil;
 
-
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -46,9 +45,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
-import me.wangyuwei.banner.BannerEntity;
-import me.wangyuwei.banner.BannerView;
-import me.wangyuwei.banner.OnBannerClickListener;
+import butterknife.ButterKnife;
 
 import static com.xd.commander.aku.util.IsInternet.isInternetCanDo;
 
@@ -91,16 +88,14 @@ public class ActivityMain extends BaseActivity implements
     ViewPager viewpager;
     @BindView(R.id.floating_search_view)
     FloatingSearchView floatingSearchView;
-    @BindView(R.id.banner_view)
-    BannerView bannerView;
     @BindView(R.id.img)
-    View v;
+    View img;
     private String mLastQuery = "";
-    private AppBarLayout.LayoutParams layoutParams;
     private AHNotification notification;
     private List<Project> project;
     private SharedPreferences.Editor sharedPreferences;
     private SharedPreferences prf;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -118,9 +113,8 @@ public class ActivityMain extends BaseActivity implements
 
     private void init() {
         PgyCrashManager.register(this);
-        sharedPreferences = getSharedPreferences("ahbottom",MODE_PRIVATE).edit();
-        prf = getSharedPreferences("ahbottom",MODE_PRIVATE);
-        layoutParams = (AppBarLayout.LayoutParams) v.getLayoutParams();
+        sharedPreferences = getSharedPreferences("ahbottom", MODE_PRIVATE).edit();
+        prf = getSharedPreferences("ahbottom", MODE_PRIVATE);
         appBarLayout.addOnOffsetChangedListener(this);
         navView.setNavigationItemSelectedListener(this);
         if (viewpager != null) {
@@ -137,34 +131,38 @@ public class ActivityMain extends BaseActivity implements
         bottomNavigation.addItem(item3);
         bottomNavigation.addItem(item4);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
-        if(prf.getInt("ah",0)==0)
-        bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this,R.color.colorAccent));
-        else bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this,R.color.color_Shenhei));
+        if (prf.getInt("ah", 0) == 0)
+            bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        else
+            bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.color_Shenhei));
         bottomNavigation.setAccentColor(Color.parseColor("#1e89e7"));
         bottomNavigation.setInactiveColor(Color.parseColor("#979797"));
         project = DataSupport.findAll(Project.class);
         notification = new AHNotification.Builder()
-                .setText(project.size()+"")
+                .setText(project.size() + "")
                 .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
                 .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
                 .build();
         bottomNavigation.setNotification(notification, 2);
 
         // Add TabItems
-        if(prf.getInt("ah",0)==0) {
+        if (prf.getInt("ah", 0) == 0) {
             tablayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), android.R.color.white));
-            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.search_view_night),ContextCompat.getColor(getContext(), R.color.colorPrimary));}
-        else {tablayout.setTabTextColors(ContextCompat.getColor(getContext(), android.R.color.white),ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-            tablayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));}
+            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.search_view_night), ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        } else {
+            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), android.R.color.white), ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            tablayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
         tablayout.setupWithViewPager(viewpager);
         /*
          * 排序
          */
         if (!isInternetCanDo(getContext()))
             Snackbar.make(coordinator, R.string.error_internet, Snackbar.LENGTH_SHORT).show();
-        if(prf.getInt("ah",0)==0)
-        floatingSearchView.setBackgroundColor(ContextCompat.getColor(this,R.color.search_view_day));
-        else floatingSearchView.setBackgroundColor(ContextCompat.getColor(this,R.color.search_view_night));
+        if (prf.getInt("ah", 0) == 0)
+            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_day));
+        else
+            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_night));
         floatingSearchView.attachNavigationDrawerToMenuButton(drawer);
         /*
          *监听点击搜索栏的动作，可提供给用户搜索前的参考items
@@ -199,24 +197,10 @@ public class ActivityMain extends BaseActivity implements
             public void onActionMenuItemSelected(MenuItem item) {
                 if (item.getItemId() == R.id.action_change_colors) {
                     ThemeUtil.switchAppTheme(ActivityMain.this);
-                    int i =prf.getInt("ah",0)==0?1:0;
-                    sharedPreferences.putInt("ah",i).apply();
+                    int i = prf.getInt("ah", 0) == 0 ? 1 : 0;
+                    sharedPreferences.putInt("ah", i).apply();
                     reload();
-            }
-        }});
-        final List<BannerEntity> entities = new ArrayList<>();
-//        Banner[] banners=new Gson().fromJson(getBanner(),Banner[].class);
-        for(int i=0;i<=2;i++){
-            BannerEntity entity = new BannerEntity();
-            entity.imageUrl = "http://upload-images.jianshu.io/upload_images/3764374-ed2fe1a918d38bdf.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/375/h/300";
-            entity.title = "记一次旅行:越南芽庄";
-            entities.add(entity);
-        }
-        bannerView.setEntities(entities);
-        bannerView.setOnBannerClickListener(new OnBannerClickListener() {
-            @Override
-            public void onClick(int position) {
-                Snackbar.make(coordinator, position + "=> " + entities.get(position).title, Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
         navView.setItemIconTintList(null);
@@ -260,43 +244,31 @@ public class ActivityMain extends BaseActivity implements
         } else if (i == 2) {
             viewPager.setAdapter(fragmentDreamAdapter2);
         } else viewPager.setAdapter(fragmentDreamAdapter3);
+        //切换时隐藏控件
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 setupViewPager(viewpager, position);
-
                 switch (position) {
                     case 0:
-                        bannerView.setVisibility(View.GONE);
-                        layoutParams.height = 168;
-                        layoutParams.width = AppBarLayout.LayoutParams.MATCH_PARENT;
-                        v.setLayoutParams(layoutParams);
                         tablayout.setVisibility(View.VISIBLE);
                         floatingSearchView.setVisibility(View.VISIBLE);
+                        img.setVisibility(View.VISIBLE);
                         break;
                     case 1:
-                        bannerView.setVisibility(View.GONE);
-                        layoutParams.height = 168;
-                        layoutParams.width = AppBarLayout.LayoutParams.MATCH_PARENT;
-                        v.setLayoutParams(layoutParams);
                         tablayout.setVisibility(View.VISIBLE);
                         floatingSearchView.setVisibility(View.VISIBLE);
+                        img.setVisibility(View.VISIBLE);
                         break;
                     case 2:
-                        bannerView.setVisibility(View.VISIBLE);
-                        layoutParams.height = 0;
-                        layoutParams.width = AppBarLayout.LayoutParams.MATCH_PARENT;
-                        v.setLayoutParams(layoutParams);
-                        tablayout.setVisibility(View.VISIBLE);
+                        tablayout.setVisibility(View.GONE);
                         floatingSearchView.setVisibility(View.GONE);
+                        img.setVisibility(View.GONE);
                         break;
                     case 3:
-                        bannerView.setVisibility(View.GONE);
-                        layoutParams.height = 0;
-                        layoutParams.width = AppBarLayout.LayoutParams.MATCH_PARENT;
-                        v.setLayoutParams(layoutParams);
                         floatingSearchView.setVisibility(View.GONE);
                         tablayout.setVisibility(View.GONE);
+                        img.setVisibility(View.GONE);
                         break;
                 }
                 return true;
@@ -318,10 +290,9 @@ public class ActivityMain extends BaseActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawer.closeDrawer(GravityCompat.START);
-        switch(item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.nav_share:
-                startActivity(new Intent(this,ActivityLibrary.class));
+                startActivity(new Intent(this, ActivityLibrary.class));
                 break;
             case R.id.nav_crash:
                 PgyerDialog.setDialogTitleBackgroundColor("#1e89e7");
@@ -330,13 +301,13 @@ public class ActivityMain extends BaseActivity implements
                 // 设置顶部导航栏和底部bar的颜色
                 break;
             case R.id.author_item:
-                Toast.makeText(getContext(),"一条临近毕业的大四狗",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "一条临近毕业的大四狗", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.translater:
-                Toast.makeText(getContext(),"一名尚未解放的高三党",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "一名尚未解放的高三党", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.viper:
-                Toast.makeText(getContext(),"一名非常v5的老司机",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "一名非常v5的老司机", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
@@ -360,15 +331,14 @@ public class ActivityMain extends BaseActivity implements
      */
     @Override
     public void show(String message) {
-        if(isInteger(message)) {
+        if (isInteger(message)) {
             notification = new AHNotification.Builder()
                     .setText(message)
                     .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
                     .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
                     .build();
-        bottomNavigation.setNotification(notification, 2);
-        }
-        else Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
+            bottomNavigation.setNotification(notification, 2);
+        } else Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
     }
 
     /**
@@ -382,17 +352,17 @@ public class ActivityMain extends BaseActivity implements
         else
             Snackbar.make(coordinator, R.string.error_internet, Snackbar.LENGTH_SHORT).show();
     }
+
     @Override
     public void onStart() {
         super.onStart();
         project = DataSupport.findAll(Project.class);
         notification = new AHNotification.Builder()
-                .setText(project.size()+"")
+                .setText(project.size() + "")
                 .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
                 .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
                 .build();
         bottomNavigation.setNotification(notification, 2);
-        bannerView.startAutoScroll();
     }
 
     @Override
@@ -400,20 +370,27 @@ public class ActivityMain extends BaseActivity implements
         super.onResume();
         project = DataSupport.findAll(Project.class);
         notification = new AHNotification.Builder()
-                .setText(project.size()+"")
+                .setText(project.size() + "")
                 .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
                 .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
                 .build();
-            bottomNavigation.setNotification(notification, 2);
+        bottomNavigation.setNotification(notification, 2);
     }
 
     @Override
     public void onStop() {
-        bannerView.stopAutoScroll();
         super.onStop();
     }
-    private  boolean isInteger(String str) {
+
+    private boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

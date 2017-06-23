@@ -1,7 +1,4 @@
 package com.xd.commander.aku.fragment;
-
-
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -26,12 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
-
 /**
  * Created by Administrator on 2017/4/27.
  */
-
 public class FragmentOther extends BaseFragment {
     @BindView(R.id.authorIcon)
     ImageView authorIcon;
@@ -42,7 +36,6 @@ public class FragmentOther extends BaseFragment {
     private String[] other_tv = { "清除离线缓存","检查更新"};
     private int[] other_iv = {
              R.drawable.vector_bmnavi_about, R.drawable.vector_bmnavi_about};
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_other;

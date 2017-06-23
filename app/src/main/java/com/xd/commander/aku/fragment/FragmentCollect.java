@@ -1,4 +1,5 @@
 package com.xd.commander.aku.fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -20,14 +21,17 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterDragOrSwipeItem;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
-import com.xd.commander.aku.interf.SnackerBarShow;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.crud.callback.UpdateOrDeleteCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import me.wangyuwei.banner.BannerEntity;
+import me.wangyuwei.banner.BannerView;
+import me.wangyuwei.banner.OnBannerClickListener;
 
 
 /**
@@ -37,7 +41,7 @@ import butterknife.BindView;
 public class FragmentCollect extends BaseFragment{
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    private SnackerBarShow snackerBarShow;
+    private BannerView banner;
     @Override
     protected int getLayoutId() {
         return R.layout.item_recycelerview;
@@ -131,5 +135,30 @@ public class FragmentCollect extends BaseFragment{
                 Toast.makeText(getContext(), v.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+        final List<BannerEntity> entities = new ArrayList<>();
+        BannerEntity b1 = new BannerEntity();
+        b1.imageUrl = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
+        b1.title = "123";
+//        b2 = new Banner("https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg","456");
+//        b3 = new Banner("https://ws1.sinaimg.cn/large/610dc034ly1fgdmpxi7erj20qy0qyjtr.jpg","789");
+        entities.add(b1);
+//        entities.add(b2);
+//        entities.add(b3);
+        View view = getLayoutInflater(savedInstanceState).inflate(R.layout.item_banner,(ViewGroup) mRecyclerView.getParent());
+        banner = (BannerView) view.findViewById(R.id.banner_view);
+                banner.setOnBannerClickListener(new OnBannerClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        Toast.makeText(getContext(), position + "=> " + entities.get(position).title, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        adapterItem.addHeaderView(view);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(banner!=null)
+        banner.startAutoScroll();
     }
 }
