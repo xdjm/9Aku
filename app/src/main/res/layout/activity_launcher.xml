@@ -3,13 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_launcher"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bitmap_bg">
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/v"
+        android:layout_width="368dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <com.jrummyapps.android.widget.AnimatedSvgView
         android:id="@+id/animated_svg_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="8dp"
         app:animatedSvgFillColors="@array/color_arsenal"
         app:animatedSvgFillStart="1200"
         app:animatedSvgFillTime="500"
@@ -21,26 +33,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.493" />
+        app:layout_constraintTop_toBottomOf="@+id/v" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="@string/app_details"
         android:textSize="@dimen/textSize_xx"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/animated_svg_view"
-        app:layout_constraintVertical_bias="0.491"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintVertical_bias="0.491" />
 </android.support.constraint.ConstraintLayout>

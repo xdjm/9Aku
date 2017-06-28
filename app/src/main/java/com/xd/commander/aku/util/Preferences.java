@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
  */
 class Preferences {
     private static final String shared_name="user_guide";
-    private static SharedPreferences sp;
 
     static String getString(Context context, String key,
                             String defaultValues) {

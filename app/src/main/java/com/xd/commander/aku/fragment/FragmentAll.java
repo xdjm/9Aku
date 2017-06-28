@@ -6,9 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xd.commander.aku.ActivityDetail;
@@ -17,7 +15,6 @@ import com.xd.commander.aku.adapter.AdapterItem;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
 import com.xd.commander.aku.constants.Constants;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,13 +28,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
 import static com.xd.commander.aku.api.RetrofitHttp.createService;
 import static com.xd.commander.aku.util.HanHua.toHanHua;
 
 /**
  * Created by Administrator on 2017/4/15.
  */
+
 public class FragmentAll extends BaseFragment {
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
@@ -46,7 +43,8 @@ public class FragmentAll extends BaseFragment {
     private AdapterItem adapterItem;
     private int category;
     private List<Project> list_back;
-    private String categoryname;
+    private String cateGoryName;
+
     public FragmentAll newInstance(int category) {
         FragmentAll newFragment = new FragmentAll();
         Bundle bundle = new Bundle();
@@ -71,22 +69,16 @@ public class FragmentAll extends BaseFragment {
     }
 
     @Override
-    protected void initView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        try {
-            swipeRefreshLayout.setProgressViewEndTarget(true, 150);
-            swipeRefreshLayout.setRefreshing(true);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     getData(category);
                 }
             });
-        } catch (Exception e) {
-         show(e.toString());
-        }
-
     }
     public void getData(final int category) {
         createService(getContext(), Constants.URL).getHtml(1, "created", category)
@@ -122,27 +114,28 @@ public class FragmentAll extends BaseFragment {
                                 try {newinfo = mElement.select("a[class*=badge new]").text();
                                 } catch (Exception e) {Log.d("TAG", e.toString());
                                     newinfo = "";}
-                                try {categoryname = mElement.select("a[class*=badge free]").text();
+                                try {
+                                    cateGoryName = mElement.select("a[class*=badge free]").text();
                                 }catch (Exception e) {Log.d("TAG", e.toString());
-                                    categoryname="";
+                                    cateGoryName ="";
                                 }
-                                if(categoryname.equals(""))
+                                if(cateGoryName.equals(""))
                                 {try {
-                                categoryname = mElement.select("a[class*=badge demo]").text();
+                                cateGoryName = mElement.select("a[class*=badge demo]").text();
                             }
                             catch (Exception ee){Log.d("TAG", ee.toString());
-                                categoryname="";
+                                cateGoryName ="";
                             }}
-                                if(categoryname.equals(""))
+                                if(cateGoryName.equals(""))
                                 {try {
-                                    categoryname = mElement.select("a[class*=badge paid]").text();
+                                    cateGoryName = mElement.select("a[class*=badge paid]").text();
                                 }catch (Exception eee){Log.d("TAG", eee.toString());
-                                    categoryname="";
+                                    cateGoryName ="";
                                 }}
                                 Project p = new Project(
                                         projectName, http,
                                         projectAuthor, projectTime,
-                                        toHanHua(projectTag), desc ,toHanHua(newinfo),toHanHua(categoryname)
+                                        toHanHua(projectTag), desc ,toHanHua(newinfo),toHanHua(cateGoryName)
                                 );
                                 list_back.add(p);
                             }

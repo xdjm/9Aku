@@ -9,6 +9,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fitsSystemWindows">false</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
     <style name="AppTheme.Black" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
@@ -17,5 +18,6 @@
         <item name="colorAccent">#666666</item>
         <item name="colorPrimaryDark">#212121</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 </resources>

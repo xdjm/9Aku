@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -11,6 +12,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +21,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
@@ -37,13 +41,11 @@ import com.xd.commander.aku.fragment.FragmentOther;
 import com.xd.commander.aku.fragment.FragmentSort;
 import com.xd.commander.aku.interf.SnackerBarShow;
 import com.xd.commander.aku.util.ThemeUtil;
-
 import org.litepal.crud.DataSupport;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
-
 import butterknife.BindView;
 
 import static com.xd.commander.aku.util.IsInternet.isInternetCanDo;
@@ -90,10 +92,9 @@ public class ActivityMain extends BaseActivity implements
     @BindView(R.id.img)
     View img;
     private String mLastQuery = "";
-    private AHNotification notification;
-    private List<Project> project;
     private SharedPreferences.Editor sharedPreferences;
     private SharedPreferences prf;
+    private View positionView;
 
     @Override
     protected int getLayoutId() {
@@ -102,7 +103,7 @@ public class ActivityMain extends BaseActivity implements
 
     @Override
     protected Context getActivity() {
-        return ActivityMain.this;
+        return this;
     }
 
     @Override
@@ -111,6 +112,19 @@ public class ActivityMain extends BaseActivity implements
     }
 
     private void init() {
+        positionView= findViewById(R.id.v);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                positionView.setBackgroundColor(Color.TRANSPARENT);
+                getWindow()
+                        .getDecorView()
+                        .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            } else {
+                getWindow()
+                        .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+        }
+        dealStatusBar();
         PgyCrashManager.register(this);
         sharedPreferences = getSharedPreferences("ahbottom", MODE_PRIVATE).edit();
         prf = getSharedPreferences("ahbottom", MODE_PRIVATE);
@@ -119,12 +133,16 @@ public class ActivityMain extends BaseActivity implements
         if (viewpager != null) {
             setupViewPager(viewpager, 0);
         }
+
         //添加图标
+
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(null, R.drawable.vector_bmnavi_all);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(null, R.drawable.vector_bmnavi_sort);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(null, R.drawable.vector_bmnavi_collect);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(null, R.drawable.vector_bmnavi_about);
+
         // Add items
+
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -136,36 +154,30 @@ public class ActivityMain extends BaseActivity implements
             bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.color_Shenhei));
         bottomNavigation.setAccentColor(Color.parseColor("#1e89e7"));
         bottomNavigation.setInactiveColor(Color.parseColor("#979797"));
-        project = DataSupport.findAll(Project.class);
-        notification = new AHNotification.Builder()
-                .setText(project.size() + "")
-                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
-                .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
-                .build();
-        bottomNavigation.setNotification(notification, 2);
 
-        // Add TabItems
+         //判断夜间模式换主题
+         //根据模式切换searchView和tabLayout的主题
+         //白昼、夜间
+
         if (prf.getInt("ah", 0) == 0) {
+            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_day));
             tablayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), android.R.color.white));
-            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.search_view_night), ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.color_Shenhei), ContextCompat.getColor(getContext(), R.color.colorPrimary));
         } else {
-            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), android.R.color.white), ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_night));
             tablayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            tablayout.setTabTextColors(ContextCompat.getColor(getContext(), android.R.color.white), ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
         }
         tablayout.setupWithViewPager(viewpager);
-        /*
-         * 排序
-         */
+        floatingSearchView.attachNavigationDrawerToMenuButton(drawer);
+
+       //判断网络
+
         if (!isInternetCanDo(getContext()))
             Snackbar.make(coordinator, R.string.error_internet, Snackbar.LENGTH_SHORT).show();
-        if (prf.getInt("ah", 0) == 0)
-            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_day));
-        else
-            floatingSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.search_view_night));
-        floatingSearchView.attachNavigationDrawerToMenuButton(drawer);
-        /*
-         *监听点击搜索栏的动作，可提供给用户搜索前的参考items
-         */
+
+        //监听点击搜索栏的动作，可提供给用户搜索前的参考items
+
         floatingSearchView.setOnFocusChangeListener(new FloatingSearchView.OnFocusChangeListener() {
             @Override
             public void onFocus() {
@@ -205,6 +217,11 @@ public class ActivityMain extends BaseActivity implements
         navView.setItemIconTintList(null);
     }
 
+    /**
+     * 设置翻页
+     * @param viewPager 翻页器
+     * @param i 页面指针
+     */
     private void setupViewPager(ViewPager viewPager, int i) {
         ArrayList<Fragment> list0 = new ArrayList<>();
         ArrayList<Fragment> list1 = new ArrayList<>();
@@ -243,12 +260,14 @@ public class ActivityMain extends BaseActivity implements
         } else if (i == 2) {
             viewPager.setAdapter(fragmentDreamAdapter2);
         } else viewPager.setAdapter(fragmentDreamAdapter3);
-        //切换时隐藏控件
+
+        //viewpager切换fragment时，控制头部控件
+
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 setupViewPager(viewpager, position);
-                if(position==1||position==2){
+                if(position==0||position==1){
                         tablayout.setVisibility(View.VISIBLE);
                         floatingSearchView.setVisibility(View.VISIBLE);
                         img.setVisibility(View.VISIBLE);}
@@ -262,6 +281,9 @@ public class ActivityMain extends BaseActivity implements
         });
     }
 
+    /**
+     * 重写返回键
+     */
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START) || floatingSearchView.isSearchBarFocused()) {
@@ -278,22 +300,24 @@ public class ActivityMain extends BaseActivity implements
         drawer.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
             case R.id.nav_share:
-                startActivity(new Intent(this, ActivityLibrary.class));
+                ActivityOptionsCompat compat = ActivityOptionsCompat.makeCustomAnimation(this,
+                        R.anim.activity_in, R.anim.activity_out);
+                ActivityCompat.startActivity(this,
+                        new Intent(this, ActivityLibrary.class), compat.toBundle());
                 break;
             case R.id.nav_crash:
                 PgyerDialog.setDialogTitleBackgroundColor("#1e89e7");
                 PgyerDialog.setDialogTitleTextColor("#ffffff");
                 PgyFeedback.getInstance().showDialog(ActivityMain.this);
-                // 设置顶部导航栏和底部bar的颜色
                 break;
             case R.id.author_item:
-                Toast.makeText(getContext(), "一条临近毕业的大四狗", Toast.LENGTH_SHORT).show();
+                show("一名即将分流的大四狗");
                 break;
             case R.id.translater:
-                Toast.makeText(getContext(), "一名尚未解放的高三党", Toast.LENGTH_SHORT).show();
+                show("一名刚刚解放的高三党");
                 break;
             case R.id.viper:
-                Toast.makeText(getContext(), "一名非常v5的老司机", Toast.LENGTH_SHORT).show();
+                show("一名废寝忘食的老司机");
                 break;
         }
         return true;
@@ -304,72 +328,98 @@ public class ActivityMain extends BaseActivity implements
         floatingSearchView.setTranslationY(verticalOffset);
     }
 
-    private void goToSearchActivity(String searchinfo) {
+    private void goToSearchActivity(String searchInfo) {
         Intent intent = new Intent(getContext(), ActivtyCategory.class);
-        intent.putExtra("url", "search?q=" + searchinfo);
-        intent.putExtra("category", searchinfo);
+        intent.putExtra("url", "search?q=" + searchInfo);
+        intent.putExtra("category", searchInfo);
         intent.putExtra("what", "搜索结果");
         startActivity(intent);
     }
 
     /**
-     * @param message 显示tag信息
+     * @param message
+     * 处理来自Fragment中的SnackBar
+     * 通过判断 message 的数据类型 分为两种模式
+     * 一是，来自普通的通知消息，正常显示SnackerBar
+     * 二是，来自收藏删除后的回调，更新显示还剩下的收藏个数
      */
+
     @Override
     public void show(String message) {
         if (isInteger(message)) {
-            notification = new AHNotification.Builder()
-                    .setText(message)
-                    .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
-                    .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
-                    .build();
-            bottomNavigation.setNotification(notification, 2);
+            setCollectedCount(Integer.valueOf(message),false);
         } else Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
     }
 
     /**
-     * @param isDataAvailable 显示网络情况
+     * @param isDataAvailable
+     * 网络变化监听
      */
     @Override
     public void onSync(boolean isDataAvailable) {
         count();
         if (isDataAvailable)
-            Snackbar.make(coordinator, R.string.netisok, Snackbar.LENGTH_SHORT).show();
+            show(getString(R.string.netisok));
         else
-            Snackbar.make(coordinator, R.string.error_internet, Snackbar.LENGTH_SHORT).show();
+            show(getString(R.string.error_internet));
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        project = DataSupport.findAll(Project.class);
-        notification = new AHNotification.Builder()
-                .setText(project.size() + "")
-                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
-                .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
-                .build();
-        bottomNavigation.setNotification(notification, 2);
+        setCollectedCount(0,true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        project = DataSupport.findAll(Project.class);
-        notification = new AHNotification.Builder()
-                .setText(project.size() + "")
-                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
-                .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
-                .build();
-        bottomNavigation.setNotification(notification, 2);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+        setCollectedCount(0,true);
     }
 
     private boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
+    }
+
+    /**
+     * 设置已收藏数
+     * @param count 个数
+     * @param ifCount 是否从数据库中计算
+     */
+
+    private void setCollectedCount(int count,Boolean ifCount){
+        if(ifCount)
+            count = DataSupport.findAll(Project.class).size();
+        AHNotification notification = new AHNotification.Builder()
+                .setText(count + "")
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_Danhong))
+                .setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent))
+                .build();
+        bottomNavigation.setNotification(notification, 2);
+    }
+    private void dealStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int statusBarHeight = getStatusBarHeight();
+            ViewGroup.LayoutParams lp = positionView.getLayoutParams();
+            lp.height = statusBarHeight;
+            positionView.setLayoutParams(lp);
+        }
+    }
+
+    private int getStatusBarHeight() {
+        Class<?> c;
+        Object obj;
+        Field field;
+        int x, statusBarHeight = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            statusBarHeight = getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return statusBarHeight;
     }
 }

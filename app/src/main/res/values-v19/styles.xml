@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
     <style name="AppTheme.Black" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
@@ -14,5 +15,6 @@
         <item name="colorPrimary">#464646</item>
         <item name="colorAccent">#666666</item>
         <item name="colorPrimaryDark">#212121</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 </resources>

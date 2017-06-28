@@ -1,0 +1,61 @@
+ext {
+    android = [
+            compileSdkVersion: 25,
+            buildToolsVersion: '25.0.2',
+            applicationId    : "com.xd.commander.aku",
+            minSdkVersion    : 19,
+            targetSdkVersion : 25,
+            versionCode      : 3,
+            versionName      : "1.1"
+    ]
+
+    def dependVersion = [
+            support    : "25.3.0",
+            retrofit   : "2.2.0",
+            butterknife: "8.5.1",
+    ]
+
+    def dependencies = [
+
+            //base
+            "appcompat-v7"              : "com.android.support:appcompat-v7:${dependVersion.support}",
+            "cardview-v7"               : "com.android.support:cardview-v7:${dependVersion.support}",
+            "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            "design"                    : "com.android.support:design:${dependVersion.support}",
+            "support-annotations"       : "com.android.support:support-annotations:${dependVersion.support}",
+            "support-vector-drawable"   : "com.android.support:support-vector-drawable:${dependVersion.support}",
+
+            //ui
+            "Flexbox": "com.google.android:flexbox:0.3.0-alpha3",
+            "FloatingSearchView":"com.github.arimorty:floatingsearchview:2.0.3",
+            "FabOption": "com.github.joaquimley:faboptions:1.1.2",
+            "Markdown": "com.github.tiagohm.MarkdownView:library:0.13.1",
+            "Html-textview": "org.sufficientlysecure:html-textview:3.3",
+            "AHBottomNavigation": "com.aurelhubert:ahbottomnavigation:2.0.6",
+            "BaseRecyclerViewAdapter"   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
+            "Constraint":"com.android.support.constraint:constraint-layout:1.0.0-beta4",
+
+            //rx
+            "RxDownloader": "com.github.esafirm:RxDownloader:1.0.1",
+            "rxjava"                    : "io.reactivex.rxjava:rxjava:1.2.0",
+            "rxandroid"                 : "io.reactivex.rxjava:rxandroid:1.1.0",
+
+            //network
+            "retrofit"                  : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
+            "retrofit-converter-gson"   : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit}",
+            "retrofit-adapter-rxjava2"  : "com.squareup.retrofit2:adapter-rxjava:${dependVersion.retrofit}",
+
+            //bind
+            "butterknife"               : "com.jakewharton:butterknife:${dependVersion.butterknife}",
+            "butterknife-compiler"      : "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}",
+
+            //util
+            "Gson": "com.google.code.gson:gson:2.8.0",
+            "Pgyer":"com.pgyersdk:sdk:2.5.6",
+            "Bugly": "com.tencent.bugly:crashreport_upgrade:1.2.5",
+            "Glide":"com.github.bumptech.glide:glide:3.7.0",
+            "Jsoup":"org.jsoup:jsoup:1.10.2",
+            "LitePal": "org.litepal.android:core:1.5.1",
+
+    ]
+}

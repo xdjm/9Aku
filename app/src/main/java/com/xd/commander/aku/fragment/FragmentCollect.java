@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -48,7 +47,7 @@ public class FragmentCollect extends BaseFragment{
     }
 
     @Override
-    protected void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState) {
         final List<Project> list = DataSupport.findAll(Project.class);
         AdapterDragOrSwipeItem adapterItem = new AdapterDragOrSwipeItem(list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -144,15 +143,15 @@ public class FragmentCollect extends BaseFragment{
         entities.add(b1);
 //        entities.add(b2);
 //        entities.add(b3);
-        View view = getLayoutInflater(savedInstanceState).inflate(R.layout.item_banner,(ViewGroup) mRecyclerView.getParent());
-        banner = (BannerView) view.findViewById(R.id.banner_view);
+        View bannerView = getLayoutInflater(savedInstanceState).inflate(R.layout.item_banner,(ViewGroup) mRecyclerView.getParent());
+        banner = (BannerView) bannerView.findViewById(R.id.banner_view);
                 banner.setOnBannerClickListener(new OnBannerClickListener() {
                     @Override
                     public void onClick(int position) {
                         Toast.makeText(getContext(), position + "=> " + entities.get(position).title, Toast.LENGTH_SHORT).show();
                     }
                 });
-        adapterItem.addHeaderView(view);
+        adapterItem.addHeaderView(bannerView);
     }
 
     @Override

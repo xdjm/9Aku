@@ -4,20 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tencent.bugly.beta.Beta;
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterItem_other;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Other;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +37,7 @@ public class FragmentOther extends BaseFragment {
     }
 
     @Override
-    protected void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState) {
 
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

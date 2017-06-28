@@ -3,8 +3,7 @@ package com.xd.commander.aku.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.View;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.android.flexbox.FlexWrap;
@@ -15,6 +14,7 @@ import com.xd.commander.aku.adapter.AdapterExpandedItem;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Sort0Item;
 import com.xd.commander.aku.bean.Sort1Item;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -22,8 +22,8 @@ import butterknife.BindView;
 public class FragmentSort extends BaseFragment {
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
-    private ArrayList<MultiItemEntity> list;
-    private String[][] sort11=
+    private static ArrayList<MultiItemEntity> list;
+    private static String[][] sort11 =
             {
                     {"2D Engines (10)1"}
                     , {"3D Engines (12)1"}
@@ -257,7 +257,7 @@ public class FragmentSort extends BaseFragment {
                     {"YAML (4)1"},
                     {"ZIP Codes (1)1"}};
     private String[][] sort21 =
-            {{      "2D Engines (1)2"}, {
+            {{"2D Engines (1)2"}, {
                     "3D Engines (1)2"}, {
                     "Analytics (8)2"}, {
                     "Continuous Integration (1)2",
@@ -292,8 +292,8 @@ public class FragmentSort extends BaseFragment {
                     "Video (2)2"}, {
                     "WebRTC (1)2"}, {
                     "XMPP (1)2"}};
-    public final  String[][] sort31 =
-            {{      "Action Bars (2)3",
+    public static String[][] sort31 =
+            {{"Action Bars (2)3",
                     "Animations (31)3",
                     "API (10)3",
                     "APK (1)3",
@@ -415,6 +415,7 @@ public class FragmentSort extends BaseFragment {
                     "WebRTC (1)3",
                     "Widgets (1)3"}, {
                     "XMPP (4)3"}};
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_category;
@@ -439,7 +440,7 @@ public class FragmentSort extends BaseFragment {
     }
 
     @Override
-    protected void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState) {
         //适配器
         AdapterExpandedItem adapter = new AdapterExpandedItem(list);
         mRecyclerView.setAdapter(adapter);
@@ -453,16 +454,13 @@ public class FragmentSort extends BaseFragment {
         flexboxLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
         //TODO 为recyclerview设置FlexboxLayoutManager的布局管理器
         mRecyclerView.setLayoutManager(flexboxLayoutManager);
-        /**
-         * 全部展开adapter.expandAll();
-         */
     }
+    /**
+     * sort0 大分类
+     * sort1 小分类
+     */
     private ArrayList<MultiItemEntity> generateData(int category) {
-        /**
-         * sort0 大分类
-         * sort1 小分类
-         */
-        ArrayList<MultiItemEntity> res=new ArrayList<>();
+        ArrayList<MultiItemEntity> res = new ArrayList<>();
         switch (category) {
             case 1:
                 String[] sort00 = new String[29];
@@ -483,8 +481,8 @@ public class FragmentSort extends BaseFragment {
                 }
                 break;
             case 2:
-                String[] sort10 = new String[]{"2","3","A","C","D","E","F","G","I","J","L","M","N"
-                        ,"O","P","Q","R","S","T","V","W","X"};
+                String[] sort10 = new String[]{"2", "3", "A", "C", "D", "E", "F", "G", "I", "J", "L", "M", "N"
+                        , "O", "P", "Q", "R", "S", "T", "V", "W", "X"};
                 for (int i = 0; i < sort10.length; i++) {
                     Sort0Item lv0 = new Sort0Item(sort10[i]);
                     for (int j = 0; j < sort21[i].length; j++) {
@@ -495,8 +493,8 @@ public class FragmentSort extends BaseFragment {
                 }
                 break;
             case 3:
-                String[] sort_paid = new String[]{"A","B","C","D","E","F","G","I","J","K","L","M","N"
-                ,"O","P","Q","R","S","T","U","V","W","X"};
+                String[] sort_paid = new String[]{"A", "B", "C", "D", "E", "F", "G", "I", "J", "K", "L", "M", "N"
+                        , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X"};
                 for (int i = 0; i < sort_paid.length; i++) {
                     Sort0Item lv0 = new Sort0Item(sort_paid[i]);
                     for (int j = 0; j < sort31[i].length; j++) {

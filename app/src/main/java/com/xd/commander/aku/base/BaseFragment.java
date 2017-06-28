@@ -22,13 +22,13 @@ public abstract class BaseFragment extends Fragment {
     private int messageShowCount = 0;
     protected abstract int getLayoutId();
 
-    protected abstract void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract void initView(View view, Bundle savedInstanceState);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         unbinder = ButterKnife.bind(this, view);
-        initView(inflater, container, savedInstanceState);
+        initView(view, savedInstanceState);
         return view;
     }
     public void count() {
