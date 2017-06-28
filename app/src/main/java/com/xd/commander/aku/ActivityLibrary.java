@@ -17,11 +17,10 @@ import com.xd.commander.aku.bean.Library;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class ActivityLibrary extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
 
@@ -108,7 +107,7 @@ public class ActivityLibrary extends BaseActivity {
             };
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_library;
+        return R.layout.item_recycelerview;
     }
 
     @Override
@@ -118,15 +117,6 @@ public class ActivityLibrary extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        toolbar.setNavigationIcon(R.drawable.ic_back);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        mRecyclerView.setNestedScrollingEnabled(false);
         AdapterItem_library adapterItem_library = new AdapterItem_library(getlist());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapterItem_library);
@@ -140,6 +130,7 @@ public class ActivityLibrary extends BaseActivity {
                 startActivity(intent);
             }
         });
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
     private List<Library> getlist() {
         List<Library> list = new ArrayList<>();

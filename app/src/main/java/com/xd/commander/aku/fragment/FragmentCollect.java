@@ -20,18 +20,15 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterDragOrSwipeItem;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
-
 import org.litepal.crud.DataSupport;
 import org.litepal.crud.callback.UpdateOrDeleteCallback;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.wangyuwei.banner.BannerEntity;
 import me.wangyuwei.banner.BannerView;
 import me.wangyuwei.banner.OnBannerClickListener;
-
 
 /**
  * Created by Administrator on 2017/4/25.
@@ -152,6 +149,7 @@ public class FragmentCollect extends BaseFragment{
                     }
                 });
         adapterItem.addHeaderView(bannerView);
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
 
     @Override

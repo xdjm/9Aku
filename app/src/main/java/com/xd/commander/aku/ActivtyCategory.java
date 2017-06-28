@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -166,6 +167,7 @@ private List<Project> list;
                             adapterItem.notifyDataSetChanged();
                             adapterItem.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                             swipeRefreshLayout.setRefreshing(false);
+                            OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
                             //TODO @RecyclerView 点击监听事件
                             adapterItem.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                 @Override
