@@ -7,18 +7,6 @@ import org.litepal.crud.DataSupport;
  */
 //TODO 详细内容
 public class Detail extends DataSupport {
-    public Detail(Detail detail) {
-        this.dt_0 = detail.getDt_0();
-        this.dd_0 = detail.getDd_0();
-        this.dt_1 = detail.getDt_1();
-        this.dd_1 = detail.getDd_1();
-        this.star = detail.getStar();
-        this.markdown = detail.getMarkdown();
-        this.watch = detail.getWatch();
-        this.fork = detail.getFork();
-        this.issue = detail.getIssue();
-        this.http = detail.getHttp();
-    }
 
     /**
      * @param dt_0 General 一般的标题
@@ -62,9 +50,6 @@ public class Detail extends DataSupport {
         return dd_1;
     }
 
-    public String getMarkdown() {
-        return markdown;
-    }
     private final String dt_0;
     private final String dd_0;
     private final String dt_1;

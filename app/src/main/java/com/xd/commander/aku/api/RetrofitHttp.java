@@ -2,7 +2,6 @@ package com.xd.commander.aku.api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,11 +26,7 @@ import static com.xd.commander.aku.util.IsInternet.isInternetCanDo;
  */
 
 public class RetrofitHttp {
-
-    private final static String TAG = "factory";
-
     public static RetrofitApi createService(final Context context, String http) {
-
         //日志拦截器
         /*
          * 获取缓存
@@ -53,7 +48,6 @@ public class RetrofitHttp {
                     request = request.newBuilder()
                             .cacheControl(tempCacheControl)
                             .build();
-                    Log.i(TAG, "intercept:no network ");
                     Toast.makeText(context,"网路出BUG了",Toast.LENGTH_SHORT).show();
                 }
                 return chain.proceed(request);

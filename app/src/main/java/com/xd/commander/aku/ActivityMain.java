@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.xd.commander.aku.util.IsInternet.isInternetCanDo;
 
@@ -249,27 +248,14 @@ public class ActivityMain extends BaseActivity implements
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 setupViewPager(viewpager, position);
-                switch (position) {
-                    case 0:
+                if(position==1||position==2){
                         tablayout.setVisibility(View.VISIBLE);
                         floatingSearchView.setVisibility(View.VISIBLE);
-                        img.setVisibility(View.VISIBLE);
-                        break;
-                    case 1:
-                        tablayout.setVisibility(View.VISIBLE);
-                        floatingSearchView.setVisibility(View.VISIBLE);
-                        img.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        tablayout.setVisibility(View.GONE);
-                        floatingSearchView.setVisibility(View.GONE);
-                        img.setVisibility(View.GONE);
-                        break;
-                    case 3:
-                        floatingSearchView.setVisibility(View.GONE);
-                        tablayout.setVisibility(View.GONE);
-                        img.setVisibility(View.GONE);
-                        break;
+                        img.setVisibility(View.VISIBLE);}
+                else {
+                    tablayout.setVisibility(View.GONE);
+                    floatingSearchView.setVisibility(View.GONE);
+                    img.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -385,12 +371,5 @@ public class ActivityMain extends BaseActivity implements
     private boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

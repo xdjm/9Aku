@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/26.
+ * 收藏Fragment的Adapter
  */
 
 public class AdapterDragOrSwipeItem  extends BaseItemDraggableAdapter<Project, BaseViewHolder> {
