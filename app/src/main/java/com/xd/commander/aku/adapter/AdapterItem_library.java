@@ -5,9 +5,9 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.bean.Library;
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/4/11.
- */
+
+ //Created by Administrator on 2017/4/11.
+
 
 /**
  * 基于BRVAH的RecyclerView适配器

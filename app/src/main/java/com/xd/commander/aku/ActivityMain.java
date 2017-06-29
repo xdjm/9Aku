@@ -230,9 +230,7 @@ public class ActivityMain extends BaseActivity implements
         list0.add(new FragmentAll().newInstance(1));
         list0.add(new FragmentAll().newInstance(2));
         list0.add(new FragmentAll().newInstance(3));
-        list1.add(new FragmentSort().newInstance(1));
-        list1.add(new FragmentSort().newInstance(2));
-        list1.add(new FragmentSort().newInstance(3));
+        list1.add(new FragmentSort().newInstance());
         list2.add(new FragmentCollect());
         list3.add(new FragmentOther());
         ArrayList<String> listtab0 = new ArrayList<>();
@@ -240,11 +238,9 @@ public class ActivityMain extends BaseActivity implements
         listtab0.add("付费");
         listtab0.add("演示");
         ArrayList<String> listtab1 = new ArrayList<>();
-        listtab1.add("免费");
-        listtab1.add("付费");
-        listtab1.add("演示");
+        listtab1.add("分类");
         ArrayList<String> listtab2 = new ArrayList<>();
-        listtab2.add("未分类");
+        listtab2.add("收藏");
         ArrayList<String> listtab3 = new ArrayList<>();
         listtab3.add("设置");
         AdapterViewPaper fragmentDreamAdapter0 = new AdapterViewPaper(getSupportFragmentManager(), list0, listtab0);

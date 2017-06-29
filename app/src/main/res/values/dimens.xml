@@ -20,4 +20,5 @@
     <dimen name="padding_x">2dp</dimen>
     <dimen name="padding_xx">5dp</dimen>
     <dimen name="fab_magin">12dp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
 </resources>

@@ -1,7 +1,5 @@
 package com.xd.commander.aku.util;
-
 import android.content.Context;
-
 import com.xd.commander.aku.R;
 
 /**
