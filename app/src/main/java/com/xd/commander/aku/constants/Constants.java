@@ -21,238 +21,688 @@ public final class Constants {
     public static final String NETWORK_DETECTOR = "com.xd.commander.aku.DATA_AVAILABLE";
     public static final String DATA_AVAILABLE = "isDataAvailable";
     public static final String ON_SYNC = "onSync";
-    public static final String[] data = { "2D Engines",
-            "3D Engines",
-            "9-Patch",
-            "Action Bars",
-            "Activities",
-            "ADB",
-            "Advertisements",
-            "Analytics",
-            "Animations",
-            "ANR",
-            "AOP",
-            "API",
-            "APK",
-            "APT",
-            "Architecture",
-            "Audio",
-            "Autocomplete",
-            "Background Processing",
-            "Backward Compatibility",
-            "Badges",
-            "Bar Codes",
-            "Benchmarking",
-            "Bitmaps",
-            "Bluetooth",
-            "Blur Effects",
-            "Bread Crumbs",
-            "BRMS",
-            "Browser Extensions",
-            "Build Systems",
-            "Bundles",
-            "Buttons",
-            "Caching",
-            "Camera",
-            "Canvas",
-            "Cards",
-            "Carousels",
-            "Changelog",
-            "Checkboxes",
-            "Cloud Storages",
-            "Color Analysis",
-            "Color Pickers",
-            "Colors",
-            "Comet/Push",
-            "Compass Sensors",
-            "Content Providers",
-            "Crash Reports",
-            "Credit Cards",
-            "Credits",
-            "CSV",
-            "Curl/Flip Effects",
-            "Data Binding",
-            "Data Generators",
-            "Data Structures",
-            "Database",
-            "Database Browsers",
-            "Date & Time Pickers",
-            "Debugging",
-            "Decompilers",
-            "Deep Links",
-            "Dependency Injections",
-            "Design",
-            "Design Patterns",
-            "Dex",
-            "Dialogs",
-            "Distributed Computing",
-            "Distribution Platforms",
-            "Download Managers",
-            "Drawables",
-            "Emoji",
-            "Emulators",
-            "EPUB",
-            "Equalizers & Visualizations",
-            "Event Buses",
-            "Exception Handling",
-            "Face Recognition",
-            "Feedback & Ratings",
-            "File System",
-            "File/Directory Choosers",
-            "Fingerprint",
-            "Floating Action Buttons",
-            "Fonts",
-            "Forms",
-            "Fragments",
-            "FRP",
-            "FSM",
-            "Functional Programming",
-            "Gamepads",
-            "Games",
-            "Gestures",
-            "GIF",
-            "Glow Pad Views",
-            "Gradle Plugins",
-            "Graphics",
-            "Grid Views",
-            "Highlighting",
-            "HTML",
-            "HTTP Mocking",
-            "Icons",
-            "IDE",
-            "IDE Plugins",
-            "Image Croppers",
-            "Image Loaders",
-            "Image Pickers",
-            "Image Processing",
-            "Image Views",
-            "Instrumentation",
-            "Intents",
-            "Job Schedulers",
-            "JSON",
-            "Keyboard",
-            "Kotlin",
-            "Layouts",
-            "List View",
-            "List Views",
-            "Localization",
-            "Location",
-            "Lock Patterns",
-            "Logcat",
-            "Logging",
-            "Mails",
-            "Maps",
-            "Markdown",
-            "Mathematics",
-            "Maven Plugins",
-            "MBaaS",
-            "Media",
-            "Menus",
-            "Messaging",
-            "MIME",
-            "Mobile Web Frameworks",
-            "Native Image Processing",
-            "Navigation",
-            "NDK",
-            "Networking",
-            "NFC",
-            "NoSQL",
-            "Number Pickers",
-            "OAuth",
-            "Object Mocking",
-            "OCR Engines",
-            "OpenGL",
-            "ORM",
-            "Other Pickers",
-            "Parallax List Views",
-            "Parcelables",
-            "Particle Systems",
-            "Password Inputs",
-            "PDF",
-            "Permissions",
-            "Physics Engines",
-            "Platforms",
-            "Plugin Frameworks",
-            "Preferences",
-            "Progress Indicators",
-            "ProGuard",
-            "Properties",
-            "Protocol Buffer",
-            "Pull To Refresh",
-            "Purchases",
-            "Push/Pull Notifications",
-            "QR Codes",
-            "Quick Return",
-            "Radio Buttons",
-            "Range Bars",
-            "Ratings",
-            "Recycler Views",
-            "Resources",
-            "REST",
-            "Ripple Effects",
-            "RSS",
-            "Screenshots",
-            "Scripting",
-            "Scroll Views",
-            "SDK",
-            "Search Inputs",
-            "Security",
-            "Sensors",
-            "Services",
-            "Showcase Views",
-            "Signatures",
-            "Sliding Panels",
-            "Snackbars",
-            "SOAP",
-            "Social Networks",
-            "Spannable",
-            "Spinners",
-            "Splash Screens",
-            "SSH",
-            "Static Analysis Tools",
-            "Status Bars",
-            "Styling",
-            "SVG",
-            "System",
-            "Tags",
-            "TDD & BDD",
-            "Template Engines",
-            "Testing",
-            "Testing Tools",
-            "Text Formatting",
-            "Text Views",
-            "Text Watchers",
-            "Text-to-Speech",
-            "Toasts",
-            "Toolkits For Other PL",
-            "Tools",
-            "Tooltips",
-            "TV",
-            "Updaters",
-            "USB",
-            "Utils",
-            "Validation",
-            "Video",
-            "View Adapters",
-            "View Pagers",
-            "Views",
-            "Watch Face",
-            "Wearable Data Layer",
-            "Weather",
-            "Web Tools",
-            "Web Views",
-            "WebRTC",
-            "WebSockets",
-            "Wheel Widgets",
-            "Wi-Fi",
-            "Widgets",
-            "Windows",
-            "Wizards",
-            "XML",
-            "XMPP",
-            "YAML",
-            "ZIP Codes"};
-    public static final String[] data1 = {"2D引擎",
+    public static final int[] site ={1
+
+            ,2
+
+            ,217
+
+            ,3
+
+            ,186
+
+            ,156
+
+            ,4
+
+            ,5
+
+            ,6
+
+            ,180
+
+            ,221
+
+            ,190
+
+            ,201
+
+            ,166
+
+            ,7
+
+            ,8
+
+            ,240
+
+            ,9
+
+            ,10
+
+            ,140
+
+            ,11
+
+            ,213
+
+            ,210
+
+            ,134
+
+            ,176
+
+            ,137
+
+            ,214
+
+            ,225
+
+            ,12
+
+            ,203
+
+            ,13
+
+            ,14
+
+            ,141
+
+            ,185
+
+            ,15
+
+            ,154
+
+            ,16
+
+            ,162
+
+            ,17
+
+            ,19
+
+            ,18
+
+            ,187
+
+            ,182
+
+            ,178
+
+            ,20
+
+            ,21
+
+            ,220
+
+            ,22
+
+            ,23
+
+            ,24
+
+            ,200
+
+            ,239
+
+            ,170
+
+            ,25
+
+            ,26
+
+            ,27
+
+            ,218
+
+            ,175
+
+            ,222
+
+            ,28
+
+            ,29
+
+            ,163
+
+            ,148
+
+            ,30
+
+            ,181
+
+            ,31
+
+            ,179
+
+            ,191
+
+            ,33
+
+            ,123
+
+            ,34
+
+            ,242
+
+            ,32
+
+            ,241
+
+            ,188
+
+            ,118
+
+            ,164
+
+            ,35
+
+            ,238
+
+            ,173
+
+            ,37
+
+            ,215
+
+            ,209
+
+            ,38
+
+            ,233
+
+            ,152
+
+            ,227
+
+            ,246
+
+            ,147
+
+            ,193
+
+            ,165
+
+            ,39
+
+            ,40
+
+            ,41
+
+            ,135
+
+            ,42
+
+            ,204
+
+            ,177
+
+            ,43
+
+            ,44
+
+            ,45
+
+            ,46
+
+            ,157
+
+            ,47
+
+            ,48
+
+            ,153
+
+            ,132
+
+            ,49
+
+            ,50
+
+            ,232
+
+            ,205
+
+            ,51
+
+            ,54
+
+            ,52
+
+            ,159
+
+            ,55
+
+            ,56
+
+            ,150
+
+            ,57
+
+            ,58
+
+            ,59
+
+            ,60
+
+            ,183
+
+            ,169
+
+            ,119
+
+            ,127
+
+            ,138
+
+            ,128
+
+            ,61
+
+            ,62
+
+            ,63
+
+            ,64
+
+            ,224
+
+            ,65
+
+            ,243
+
+            ,155
+
+            ,149
+
+            ,66
+
+            ,67
+
+            ,68
+
+            ,129
+
+            ,69
+
+            ,231
+
+            ,70
+
+            ,71
+
+            ,168
+
+            ,207
+
+            ,72
+
+            ,235
+
+            ,73
+
+            ,74
+
+            ,245
+
+            ,75
+
+            ,76
+
+            ,172
+
+            ,161
+
+            ,77
+
+            ,78
+
+            ,79
+
+            ,80
+
+            ,81
+
+            ,136
+
+            ,82
+
+            ,83
+
+            ,84
+
+            ,199
+
+            ,229
+
+            ,85
+
+            ,167
+
+            ,86
+
+            ,237
+
+            ,89
+
+            ,151
+
+            ,192
+
+            ,208
+
+            ,87
+
+            ,88
+
+            ,216
+
+            ,198
+
+            ,171
+
+            ,90
+
+            ,234
+
+            ,91
+
+            ,92
+
+            ,219
+
+            ,211
+
+            ,244
+
+            ,93
+
+            ,94
+
+            ,95
+
+            ,144
+
+            ,96
+
+            ,97
+
+            ,197
+
+            ,98
+
+            ,99
+
+            ,102
+
+            ,103
+
+            ,196
+
+            ,101
+
+            ,212
+
+            ,100
+
+            ,104
+
+            ,105
+
+            ,106
+
+            ,146
+
+            ,195
+
+            ,145
+
+            ,107
+
+            ,108
+
+            ,109
+
+            ,110
+
+            ,53
+
+            ,111
+
+            ,184
+
+            ,202
+
+            ,206
+
+            ,112
+            ,223
+            ,230
+            ,226
+            ,113
+            ,142
+            ,133
+            ,160
+            ,228
+            ,131
+            ,114
+            ,158
+            ,115
+            ,236};
+    public static final String[] letter ={"&","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+    public static final int[] shunxu ={0,3,17,31,50,68,74,86,94,97,107,109,111,119,130,137,143,160,162,170,193,207,232,215,227,229,230};
+    public static final String[] data = { "&  2D Engines",
+            "   3D Engines",
+            "   9-Patch",
+            "A  Action Bars",
+            "   Activities",
+            "   ADB",
+            "   Advertisements",
+            "   Analytics",
+            "   Animations",
+            "   ANR",
+            "   AOP",
+            "   API",
+            "   APK",
+            "   APT",
+            "   Architecture",
+            "   Audio",
+            "   Autocomplete",
+            "B  Background Processing",
+            "   Backward Compatibility",
+            "   Badges",
+            "   Bar Codes",
+            "   Benchmarking",
+            "   Bitmaps",
+            "   Bluetooth",
+            "   Blur Effects",
+            "   Bread Crumbs",
+            "   BRMS",
+            "   Browser Extensions",
+            "   Build Systems",
+            "   Bundles",
+            "   Buttons",
+            "C  Caching",
+            "   Camera",
+            "   Canvas",
+            "   Cards",
+            "   Carousels",
+            "   Changelog",
+            "   Checkboxes",
+            "   Cloud Storages",
+            "   Color Analysis",
+            "   Color Pickers",
+            "   Colors",
+            "   Comet/Push",
+            "   Compass Sensors",
+            "   Content Providers",
+            "   Crash Reports",
+            "   Credit Cards",
+            "   Credits",
+            "   CSV",
+            "   Curl/Flip Effects",
+            "D  Data Binding",
+            "   Data Generators",
+            "   Data Structures",
+            "   Database",
+            "   Database Browsers",
+            "   Date & Time Pickers",
+            "   Debugging",
+            "   Decompilers",
+            "   Deep Links",
+            "   Dependency Injections",
+            "   Design",
+            "   Design Patterns",
+            "   Dex",
+            "   Dialogs",
+            "   Distributed Computing",
+            "   Distribution Platforms",
+            "   Download Managers",
+            "   Drawables",
+            "E  Emoji",
+            "   Emulators",
+            "   EPUB",
+            "   Equalizers & Visualizations",
+            "   Event Buses",
+            "   Exception Handling",
+            "F  Face Recognition",
+            "   Feedback & Ratings",
+            "   File System",
+            "   File/Directory Choosers",
+            "   Fingerprint",
+            "   Floating Action Buttons",
+            "   Fonts",
+            "   Forms",
+            "   Fragments",
+            "   FRP",
+            "   FSM",
+            "   Functional Programming",
+            "G  Gamepads",
+            "   Games",
+            "   Gestures",
+            "   GIF",
+            "   Glow Pad Views",
+            "   Gradle Plugins",
+            "   Graphics",
+            "   Grid Views",
+            "H  Highlighting",
+            "   HTML",
+            "   HTTP Mocking",
+            "I  Icons",
+            "   IDE",
+            "   IDE Plugins",
+            "   Image Croppers",
+            "   Image Loaders",
+            "   Image Pickers",
+            "   Image Processing",
+            "   Image Views",
+            "   Instrumentation",
+            "   Intents",
+            "J  Job Schedulers",
+            "   JSON",
+            "K  Keyboard",
+            "   Kotlin",
+            "L  Layouts",
+            "   List View",
+            "   List Views",
+            "   Localization",
+            "   Location",
+            "   Lock Patterns",
+            "   Logcat",
+            "   Logging",
+            "M  Mails",
+            "   Maps",
+            "   Markdown",
+            "   Mathematics",
+            "   Maven Plugins",
+            "   MBaaS",
+            "   Media",
+            "   Menus",
+            "   Messaging",
+            "   MIME",
+            "   Mobile Web Frameworks",
+            "N  Native Image Processing",
+            "   Navigation",
+            "   NDK",
+            "   Networking",
+            "   NFC",
+            "   NoSQL",
+            "   Number Pickers",
+            "O  OAuth",
+            "   Object Mocking",
+            "   OCR Engines",
+            "   OpenGL",
+            "   ORM",
+            "   Other Pickers",
+            "P  Parallax List Views",
+            "   Parcelables",
+            "   Particle Systems",
+            "   Password Inputs",
+            "   PDF",
+            "   Permissions",
+            "   Physics Engines",
+            "   Platforms",
+            "   Plugin Frameworks",
+            "   Preferences",
+            "   Progress Indicators",
+            "   ProGuard",
+            "   Properties",
+            "   Protocol Buffer",
+            "   Pull To Refresh",
+            "   Purchases",
+            "   Push/Pull Notifications",
+            "Q  QR Codes",
+            "   Quick Return",
+            "R  Radio Buttons",
+            "   Range Bars",
+            "   Ratings",
+            "   Recycler Views",
+            "   Resources",
+            "   REST",
+            "   Ripple Effects",
+            "   RSS",
+            "S  Screenshots",
+            "   Scripting",
+            "   Scroll Views",
+            "   SDK",
+            "   Search Inputs",
+            "   Security",
+            "   Sensors",
+            "   Services",
+            "   Showcase Views",
+            "   Signatures",
+            "   Sliding Panels",
+            "   Snackbars",
+            "   SOAP",
+            "   Social Networks",
+            "   Spannable",
+            "   Spinners",
+            "   Splash Screens",
+            "   SSH",
+            "   Static Analysis Tools",
+            "   Status Bars",
+            "   Styling",
+            "   SVG",
+            "   System",
+            "T  Tags",
+            "   TDD & BDD",
+            "   Template Engines",
+            "   Testing",
+            "   Testing Tools",
+            "   Text Formatting",
+            "   Text Views",
+            "   Text Watchers",
+            "   Text-to-Speech",
+            "   Toasts",
+            "   Toolkits For Other PL",
+            "   Tools",
+            "   Tooltips",
+            "   TV",
+            "U  Updaters",
+            "   USB",
+            "   Utils",
+            "V  Validation",
+            "   Video",
+            "   View Adapters",
+            "   View Pagers",
+            "   Views",
+            "W  Watch Face",
+            "   Wearable Data Layer",
+            "   Weather",
+            "   Web Tools",
+            "   Web Views",
+            "   WebRTC",
+            "   WebSockets",
+            "   Wheel Widgets",
+            "   Wi-Fi",
+            "   Widgets",
+            "   Windows",
+            "   Wizards",
+            "X  XML",
+            "   XMPP",
+            "Y  YAML",
+            "Z  ZIP Codes"};
+    public static final String[] hanhua = {"2D引擎",
             "3D引擎",
             "9-贴片",
             "行动酒吧",

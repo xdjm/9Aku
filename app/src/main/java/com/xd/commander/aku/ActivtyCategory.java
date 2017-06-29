@@ -1,14 +1,20 @@
 package com.xd.commander.aku;
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xd.commander.aku.adapter.AdapterItem;
 import com.xd.commander.aku.base.BaseActivity;
@@ -21,12 +27,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -39,15 +44,18 @@ import static com.xd.commander.aku.util.HanHua.toHanHua;
 public class ActivtyCategory extends BaseActivity {
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.coordinator)
-    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    @BindView(R.id.toolbar_main)
-    Toolbar toolbar;
+    @BindView(R.id.v)
+    View v;
+    @BindView(R.id.content)
+    TextView content;
+    @BindView(R.id.img2)
+    Spinner img2;
     private AdapterItem adapterItem;
     private Bundle bundle;
-private List<Project> list;
+    private List<Project> list;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_category;
@@ -60,20 +68,20 @@ private List<Project> list;
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        bundle = getIntent().getExtras();
-        toolbar.setTitle(bundle.getString("what"));
-        toolbar.setSubtitle(bundle.getString("category"));
-        toolbar.setNavigationIcon(R.drawable.ic_back);
-        setSupportActionBar(toolbar);
-        swipeRefreshLayout.setProgressViewEndTarget(true,400);
-        swipeRefreshLayout.setRefreshing(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                getWindow()
+                        .getDecorView()
+                        .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            } else {
+                getWindow()
+                        .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             }
-        });
-        mRecyclerView.setNestedScrollingEnabled(false);
+        }
+        dealStatusBar();
+        bundle = getIntent().getExtras();
+        swipeRefreshLayout.setRefreshing(true);
         getCategoryData(bundle.getString("url"));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -83,8 +91,9 @@ private List<Project> list;
             }
         });
     }
+
     public void getCategoryData(final String url) {
-        createService(getContext(), Constants.URL).getSortProject(Constants.URL+url)
+        createService(getContext(), Constants.URL).getSortProject(Constants.URL + url)
                 .map(new Func1<ResponseBody, List<Project>>() {
                     @Override
                     public List<Project> call(ResponseBody mResponseBody) {
@@ -110,41 +119,51 @@ private List<Project> list;
                                 String desc = mElement.
                                         select("div[class=desc]").html();
                                 String projectAuthor;
-                                try {projectAuthor = mElement.select("a[href*=user]").text();
+                                try {
+                                    projectAuthor = mElement.select("a[href*=user]").text();
                                 } catch (Exception e) {
                                     Log.d("TAG", e.toString());
-                                    projectAuthor = "";}
-                                String newinfo;
-                                try {newinfo = mElement.select("a[class*=badge new]").text();
-                                } catch (Exception e) {Log.d("TAG", e.toString());
-                                    newinfo = "";}
+                                    projectAuthor = "";
+                                }
+                                String newInfo;
                                 String category;
-                                try {category = mElement.select("a[class*=badge free]").text();
-                                }catch (Exception e) {Log.d("TAG", e.toString());
-                                    category="";
+                                try {
+                                    newInfo = mElement.select("a[class*=badge new]").text();
+                                } catch (Exception e) {
+                                    Log.d("TAG", e.toString());
+                                    newInfo = "";
                                 }
-                                if(category.equals(""))
-                                {try {
-                                    category = mElement.select("a[class*=badge demo]").text();
+                                try {
+                                    category = mElement.select("a[class*=badge free]").text();
+                                } catch (Exception e) {
+                                    Log.d("TAG", e.toString());
+                                    category = "";
                                 }
-                                catch (Exception ee){Log.d("TAG", ee.toString());
-                                    category="";
-                                }}
-                                if(category.equals(""))
-                                {try {
-                                    category = mElement.select("a[class*=badge paid]").text();
-                                }catch (Exception eee){Log.d("TAG", eee.toString());
-                                    category="";
-                                }}
+                                if (category.equals("")) {
+                                    try {
+                                        category = mElement.select("a[class*=badge demo]").text();
+                                    } catch (Exception e) {
+                                        Log.d("TAG", e.toString());
+                                        category = "";
+                                    }
+                                }
+                                if (category.equals("")) {
+                                    try {
+                                        category = mElement.select("a[class*=badge paid]").text();
+                                    } catch (Exception eee) {
+                                        Log.d("TAG", eee.toString());
+                                        category = "";
+                                    }
+                                }
                                 Project p = new Project(
                                         projectName, detail,
                                         projectAuthor, projectTime,
-                                        toHanHua(projectTag), desc ,toHanHua(newinfo),toHanHua(category)
+                                        toHanHua(projectTag), desc, toHanHua(newInfo), toHanHua(category)
                                 );
                                 list.add(p);
                             }
-                        } catch (IOException e) {
-                            Log.d("TAG", e.toString());
+                        } catch (Exception e) {
+                            Log.e("tag", e.toString());
                         }
                         return list;
                     }
@@ -161,13 +180,11 @@ private List<Project> list;
                     @Override
                     public void call(List<Project> list_back) {
                         try {
-                            if (!(list_back == null))
-                                mRecyclerView.setAdapter(adapterItem = new AdapterItem(list_back));
+                            mRecyclerView.setAdapter(adapterItem = new AdapterItem(list_back));
                             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             adapterItem.notifyDataSetChanged();
                             adapterItem.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                             swipeRefreshLayout.setRefreshing(false);
-                            OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
                             //TODO @RecyclerView 点击监听事件
                             adapterItem.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                 @Override
@@ -189,9 +206,9 @@ private List<Project> list;
                             Log.d("fragment_all", e.toString());
                         }
                     }
-
                 });
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int theme;
@@ -202,5 +219,29 @@ private List<Project> list;
         }
         setTheme(theme);
         super.onCreate(savedInstanceState);
+    }
+    private void dealStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int statusBarHeight = getStatusBarHeight();
+            ViewGroup.LayoutParams lp = v.getLayoutParams();
+            lp.height = statusBarHeight;
+            v.setLayoutParams(lp);
+        }
+    }
+    private int getStatusBarHeight() {
+        Class<?> c;
+        Object obj;
+        Field field;
+        int x, statusBarHeight = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            statusBarHeight = getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return statusBarHeight;
     }
 }
