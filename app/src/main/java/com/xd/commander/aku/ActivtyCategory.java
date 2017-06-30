@@ -12,25 +12,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xd.commander.aku.adapter.AdapterItem;
 import com.xd.commander.aku.base.BaseActivity;
 import com.xd.commander.aku.bean.Project;
 import com.xd.commander.aku.constants.Constants;
 import com.xd.commander.aku.util.ThemeUtil;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,8 +46,10 @@ public class ActivtyCategory extends BaseActivity {
     View v;
     @BindView(R.id.content)
     TextView content;
-    @BindView(R.id.img2)
-    Spinner img2;
+    @BindView(R.id.sort)
+    TextView sort;
+    @BindView(R.id.finish)
+    ImageView finish;
     private AdapterItem adapterItem;
     private Bundle bundle;
     private List<Project> list;
@@ -88,6 +86,13 @@ public class ActivtyCategory extends BaseActivity {
             public void onRefresh() {
                 list = null;
                 getCategoryData(bundle.getString("url"));
+            }
+        });
+        content.setText(bundle.getString("what")+":"+bundle.getString("category"));
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

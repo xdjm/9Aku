@@ -57,4 +57,5 @@ public abstract class BaseFragment extends Fragment {
                     + " must implement BaseExampleFragmentCallbacks");
         }
     }
+
 }

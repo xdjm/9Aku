@@ -35,7 +35,6 @@ android {
 }
 
 dependencies {
-    compile project(':banner')
     compile project(':library')
     compile project(':wave')
     //noinspection GradleCompatible
@@ -44,6 +43,7 @@ dependencies {
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support:cardview-v7:25.3.0'
     //第三方view
+    compile 'com.synnapps:carouselview:0.1.4'
     compile 'me.everything:overscroll-decor-android:1.0.4'
     compile 'com.google.android:flexbox:0.3.0-alpha3'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'

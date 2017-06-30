@@ -1,21 +1,27 @@
 package com.xd.commander.aku.fragment;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xd.commander.aku.ActivtyCategory;
@@ -23,10 +29,12 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.constants.Constants;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import butterknife.BindView;
 import cc.solart.wave.WaveSideBarView;
 
@@ -62,7 +70,20 @@ public class FragmentSort extends BaseFragment {
         final BaseQuickAdapter<String, BaseViewHolder> baseViewHolderBaseQuickAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_sort, name) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv0, item);
+                SpannableStringBuilder ss = new SpannableStringBuilder(item);
+                ColorStateList colorStateList = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    colorStateList = getContext().getColorStateList(R.color.colorPrimaryDark);
+                } else {
+                    try {
+                        colorStateList = ColorStateList.createFromXml(getContext().getResources(), getContext().getResources().getXml(R.xml.colors));
+                    } catch (XmlPullParserException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ss.setSpan(new TextAppearanceSpan("serif", Typeface.BOLD_ITALIC, getContext().getResources().getDimensionPixelSize(R.dimen.textSize_xxx), colorStateList, colorStateList), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                ss.setSpan(new RelativeSizeSpan(1.5f), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                helper.setText(R.id.tv0, ss);
             }
         };
         mRecyclerView.setAdapter(baseViewHolderBaseQuickAdapter);
@@ -72,6 +93,7 @@ public class FragmentSort extends BaseFragment {
                goToSearchActivity(Constants.site[position],position);
             }
         });
+        baseViewHolderBaseQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         sideView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
             @Override
             public void onLetterChange(String letter) {

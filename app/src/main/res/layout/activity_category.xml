@@ -37,8 +37,10 @@
                 android:text="消息"
                 android:textSize="20sp" />
 
-            <Spinner
-                android:id="@+id/img2"
+            <TextView
+                android:textSize="@dimen/textSize_xx"
+                android:text="排序"
+                android:id="@+id/sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

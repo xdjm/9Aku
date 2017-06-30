@@ -328,7 +328,7 @@ public class ActivityMain extends BaseActivity implements
         Intent intent = new Intent(getContext(), ActivtyCategory.class);
         intent.putExtra("url", "search?q=" + searchInfo);
         intent.putExtra("category", searchInfo);
-        intent.putExtra("what", "搜索结果");
+        intent.putExtra("what", "搜索");
         startActivity(intent);
     }
 

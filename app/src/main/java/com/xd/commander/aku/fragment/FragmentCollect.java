@@ -1,5 +1,4 @@
 package com.xd.commander.aku.fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -8,13 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 import com.xd.commander.aku.ActivityDetail;
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterDragOrSwipeItem;
@@ -22,13 +25,8 @@ import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
 import org.litepal.crud.DataSupport;
 import org.litepal.crud.callback.UpdateOrDeleteCallback;
-import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-import me.wangyuwei.banner.BannerEntity;
-import me.wangyuwei.banner.BannerView;
-import me.wangyuwei.banner.OnBannerClickListener;
 
 /**
  * Created by Administrator on 2017/4/25.
@@ -37,7 +35,7 @@ import me.wangyuwei.banner.OnBannerClickListener;
 public class FragmentCollect extends BaseFragment{
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    private BannerView banner;
+    private int[] imgID ={R.drawable.pic1,R.drawable.pic2,R.drawable.pic3};
     @Override
     protected int getLayoutId() {
         return R.layout.item_recycelerview;
@@ -107,6 +105,11 @@ public class FragmentCollect extends BaseFragment{
         adapterItem.enableDragItem(mItemTouchHelper);
         adapterItem.setOnItemDragListener(onItemDragListener);
         mRecyclerView.setAdapter(adapterItem);
+        View v = getLayoutInflater(savedInstanceState).inflate(R.layout.item_banner,(ViewGroup)mRecyclerView.getParent(),false);
+        CarouselView carouselView=(CarouselView) v.findViewById(R.id.carouselView);
+        carouselView.setPageCount(imgID.length);
+        carouselView.setImageListener(imageListener);
+        adapterItem.addHeaderView(v);
         adapterItem.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -124,38 +127,11 @@ public class FragmentCollect extends BaseFragment{
                 startActivity(intent);
             }
         });
-        adapterItem.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                TextView v =(TextView) view.findViewById(R.id.tag);
-                Toast.makeText(getContext(), v.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        final List<BannerEntity> entities = new ArrayList<>();
-        BannerEntity b1 = new BannerEntity();
-        b1.imageUrl = "https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg";
-        b1.title = "123";
-//        b2 = new Banner("https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg","456");
-//        b3 = new Banner("https://ws1.sinaimg.cn/large/610dc034ly1fgdmpxi7erj20qy0qyjtr.jpg","789");
-        entities.add(b1);
-//        entities.add(b2);
-//        entities.add(b3);
-        View bannerView = getLayoutInflater(savedInstanceState).inflate(R.layout.item_banner,(ViewGroup) mRecyclerView.getParent());
-        banner = (BannerView) bannerView.findViewById(R.id.banner_view);
-                banner.setOnBannerClickListener(new OnBannerClickListener() {
-                    @Override
-                    public void onClick(int position) {
-                        Toast.makeText(getContext(), position + "=> " + entities.get(position).title, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        adapterItem.addHeaderView(bannerView);
-        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if(banner!=null)
-        banner.startAutoScroll();
-    }
+    private ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            Glide.with(getContext()).load(imgID[position]).into(imageView);
+        }
+    };
 }
