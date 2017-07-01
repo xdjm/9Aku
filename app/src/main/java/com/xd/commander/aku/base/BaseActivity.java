@@ -1,23 +1,18 @@
 package com.xd.commander.aku.base;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-
 import com.xd.commander.aku.R;
-import com.xd.commander.aku.interf.OnNetChangeListner;
 import com.xd.commander.aku.util.ThemeUtil;
-
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * Created by Administrator on 2017/4/17.
  */
-public abstract class BaseActivity extends AppCompatActivity implements OnNetChangeListner {
+public abstract class BaseActivity extends SupportActivity{
     //支持vector图片
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -57,11 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNetCha
         return context;
     }
 
-    //方法：网络监听回调反馈时的后续处理
-
-    public void onSync(boolean isDataAvailable) {
-    }
-
     //清理无用内存的
 
     public void count() {
@@ -79,10 +69,5 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNetCha
         finish();
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
         startActivity(intent);
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityCompat.finishAfterTransition(this);
     }
 }

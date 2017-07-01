@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -19,9 +20,12 @@ import android.text.style.TextAppearanceSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xd.commander.aku.ActivtyCategory;
@@ -37,15 +41,13 @@ import java.util.Collections;
 import java.util.List;
 import butterknife.BindView;
 import cc.solart.wave.WaveSideBarView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class FragmentSort extends BaseFragment {
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
-    @BindView(R.id.rv1)
-    RecyclerView mRecyclerView1;
     @BindView(R.id.side_view)
     WaveSideBarView sideView;
-    private Toast toast;
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -53,10 +55,9 @@ public class FragmentSort extends BaseFragment {
         return R.layout.fragment_sort;
     }
 
-    public FragmentSort newInstance() {
+    public static FragmentSort newInstance() {
         return new FragmentSort();
     }
-
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
         final List<String> name = new ArrayList<>();
@@ -87,23 +88,6 @@ public class FragmentSort extends BaseFragment {
             }
         };
         mRecyclerView.setAdapter(baseViewHolderBaseQuickAdapter);
-        baseViewHolderBaseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-               goToSearchActivity(Constants.site[position],position);
-            }
-        });
-        baseViewHolderBaseQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        sideView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
-            @Override
-            public void onLetterChange(String letter) {
-                mRecyclerView.stopScroll();
-                for(int i=0;i<27;i++){
-                    if(Constants.letter[i].equals(letter))
-                        mLayoutManager.scrollToPositionWithOffset(Constants.shunxu[i],0);
-                }
-            }
-        });
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -117,7 +101,7 @@ public class FragmentSort extends BaseFragment {
                         View view = parent.getChildAt(i);
                         float top = view.getBottom()+10;
                         float bottom = view.getBottom() + 11;
-                        c.drawRect(left, top, right, bottom, dividerPaint);
+                        c.drawRect(left, top, right-100, bottom, dividerPaint);
                     }
                 }
             }
@@ -128,25 +112,28 @@ public class FragmentSort extends BaseFragment {
                 outRect.bottom = 1;
             }
         });
-    }
-    private void showToast(String info){
-        if (toast==null) {
-            toast = Toast.makeText(getContext(), info, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,0);
-            LinearLayout layout = (LinearLayout) toast.getView();
-            layout.setBackgroundColor(ContextCompat.getColor(getContext(),android.R.color.darker_gray));
-            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-            ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
-            layoutParams.height=200;
-            layoutParams.width=200;
-            v.setLayoutParams(layoutParams);
-            v.setGravity(Gravity.CENTER);
-            v.setTextColor(Color.WHITE);
-            v.setTextSize(50);
-        }else {
-            toast.setText(info);
-        }
-        toast.show();
+        baseViewHolderBaseQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        View view_head = getLayoutInflater(savedInstanceState).inflate(R.layout.fragment_sort_head,(ViewGroup)mRecyclerView.getParent(),false);
+        ImageView i =(ImageView)view_head.findViewById(R.id.img);
+        Glide.with(getContext()).load("https://raw.githubusercontent.com/vbauer/android-arsenal.com/master/misc/android-arsenal-logo.png").into(i);
+        baseViewHolderBaseQuickAdapter.addHeaderView(view_head);
+        baseViewHolderBaseQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+               goToSearchActivity(Constants.site[position],position);
+            }
+        });
+        sideView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
+            @Override
+            public void onLetterChange(String letter) {
+                mRecyclerView.stopScroll();
+                for(int i=0;i<27;i++){
+                    if(Constants.letter[i].equals(letter))
+                        mLayoutManager.scrollToPositionWithOffset(Constants.shunxu[i]+1,0);
+                }
+            }
+        });
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
     private void goToSearchActivity(int site,int pos) {
         Intent intent = new Intent(getContext(), ActivtyCategory.class);

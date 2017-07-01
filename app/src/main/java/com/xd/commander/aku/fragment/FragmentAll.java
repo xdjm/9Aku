@@ -45,10 +45,10 @@ public class FragmentAll extends BaseFragment {
     private List<Project> list_back;
     private String cateGoryName;
 
-    public FragmentAll newInstance(int category) {
+    public static FragmentAll newInstance(int category) {
         FragmentAll newFragment = new FragmentAll();
         Bundle bundle = new Bundle();
-        bundle.putInt("category", category);
+        bundle.putInt("category", category+1);
         newFragment.setArguments(bundle);
         return newFragment;
     }

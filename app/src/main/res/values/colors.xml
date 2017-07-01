@@ -8,5 +8,5 @@
     <color name="color_Shenhuang">#ffe04b</color>
     <color name="google_green">#12c700</color>
     <color name="search_view_day">#63B5f7</color>
-    <color name="search_view_night">#636363</color>
+    <color name="unselect">#c9c9c9</color>
 </resources>

@@ -1,4 +1,5 @@
 package com.xd.commander.aku.fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -23,19 +24,30 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterDragOrSwipeItem;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
+import com.xd.commander.aku.interf.SnackerBarShow;
+
 import org.litepal.crud.DataSupport;
 import org.litepal.crud.callback.UpdateOrDeleteCallback;
 import java.util.List;
 import butterknife.BindView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
  * Created by Administrator on 2017/4/25.
  */
 
 public class FragmentCollect extends BaseFragment{
+    public static FragmentCollect newInstance(){
+        Bundle args = new Bundle();
+        FragmentCollect fragment = new FragmentCollect();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    private int[] imgID ={R.drawable.pic1,R.drawable.pic2,R.drawable.pic3};
+    private String[] imgID ={"http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt7ouJwsjCmXx11tWqNxX9ERSMs9uA85DKRq4ZULot8z8MbwTUq2a69VIciaRmfGsLZ6T4yYGkWxTnw/0?wx_fmt=jpeg"
+            ,"http://mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt79QTAYwuGj1IySOhRedYYacX545tJW90g69nauhnrl15ImMnibdV97BWTBibQ7ZicPlmvRXJQ9HeBrA/0?wx_fmt=png"
+            ,"http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt5y8xhrxkshbia47BglCKkibD23WB5edSL9fItX7aPRcKYGic94bsOdddd8dI1HnIUVPuAyNunBzhJ3w/0?wx_fmt=jpeg"};
     @Override
     protected int getLayoutId() {
         return R.layout.item_recycelerview;
@@ -87,7 +99,6 @@ public class FragmentCollect extends BaseFragment{
                 DataSupport.deleteAllAsync(Project.class,"author = ? and projectName = ?",author,project).listen(new UpdateOrDeleteCallback() {
                     @Override
                     public void onFinish(int rowsAffected) {
-                        show(author+"的"+project+"已删除");
                         show(list.size()+"");
                     }
                 });
@@ -127,6 +138,7 @@ public class FragmentCollect extends BaseFragment{
                 startActivity(intent);
             }
         });
+        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
     private ImageListener imageListener = new ImageListener() {
         @Override
@@ -134,4 +146,4 @@ public class FragmentCollect extends BaseFragment{
             Glide.with(getContext()).load(imgID[position]).into(imageView);
         }
     };
-}
+    }

@@ -1,71 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
-
-        android:id="@+id/appbarlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimaryDark"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <View
-            android:background="?colorPrimaryDark"
-            android:id="@+id/img"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        <android.support.design.widget.TabLayout
-            app:elevation="4dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            app:tabMode="fixed"
-            app:tabGravity="fill"
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tablayout_height"
-            android:background="?colorPrimaryDark" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:selectedBackgroundVisible="false" />
-
-    <com.arlib.floatingsearchview.FloatingSearchView
-        android:id="@+id/floating_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:floatingSearch_actionMenuOverflowColor="#ffffff"
-        app:floatingSearch_backgroundColor="#63B5f7"
-        app:floatingSearch_clearBtnColor="#ffffff"
-        app:floatingSearch_close_search_on_keyboard_dismiss="true"
-        app:floatingSearch_dimBackground="false"
-        app:floatingSearch_dismissOnOutsideTouch="true"
-        app:floatingSearch_hintTextColor="#ffffff"
-        app:floatingSearch_leftActionColor="#ffffff"
-        app:floatingSearch_leftActionMode="showHamburger"
-        app:floatingSearch_menu="@menu/menu_main_searchview"
-        app:floatingSearch_menuItemIconColor="?colorPrimaryDark"
-        app:floatingSearch_searchBarMarginLeft="10dp"
-        app:floatingSearch_searchBarMarginRight="10dp"
-        app:floatingSearch_searchHint="@string/search"
-        app:floatingSearch_showSearchKey="true"
-        app:floatingSearch_viewTextColor="#ffffff" />
 </android.support.design.widget.CoordinatorLayout>

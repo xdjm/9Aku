@@ -23,6 +23,8 @@ public class MyApplication extends Application implements Application.ActivityLi
      */
     @Override
     public void onCreate() {
+        super.onCreate();
+//        LeakCanary.install(this);
         PgyCrashManager.register(this);
         //初始BUGly
         Bugly.init(getApplicationContext(), Constants.Key_Bugly, true);

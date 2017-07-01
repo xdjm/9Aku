@@ -429,10 +429,11 @@ public class ActivityDetail extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
         if (!fabOptions.isOpen())
-            super.onBackPressed();
+            super.onBackPressedSupport();
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

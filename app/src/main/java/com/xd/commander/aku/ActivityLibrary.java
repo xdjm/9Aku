@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,9 +25,7 @@ public class ActivityLibrary extends BaseActivity {
 
     private String[] project =
             {
-                    "FlexboxLayout"
-                    ,"Floating Search View"
-                    ,"FabOptions"
+                    "FabOptions"
                     ,"MarkdownView"
                     ,"HtmlTextView"
                     ,"AHBottomNavigation"
@@ -45,9 +42,7 @@ public class ActivityLibrary extends BaseActivity {
             };
     private String[] author =
             {
-                    "google"
-                    ,"arimorty"
-                    ,"JoaquimLey"
+                   "JoaquimLey"
                     ,"tiagohm"
                     ,"SufficientlySecure"
                     ,"aurelhubert"
@@ -66,9 +61,7 @@ public class ActivityLibrary extends BaseActivity {
             };
     private String[] http =
             {
-                    "https://android-arsenal.com/details/1/3549"
-                    ,"https://android-arsenal.com/details/1/2842"
-                    ,"https://android-arsenal.com/details/1/4734"
+                   "https://android-arsenal.com/details/1/4734"
                     ,"https://android-arsenal.com/details/1/5386"
                     ,"https://android-arsenal.com/details/1/476"
                     ,"https://android-arsenal.com/details/1/3295"
@@ -85,9 +78,7 @@ public class ActivityLibrary extends BaseActivity {
             };
     private String[] detail =
             {
-                    "FlexboxLayout is a library project which brings the similar capabilities of CSS Flexible Box Layout Module to Android."
-                    ,"An implementation of a floating search box with search suggestions, also called persistent search bar."
-                    ,"A multi-functional FAB component with customizable options."
+                    "A multi-functional FAB component with customizable options."
                     ,"Android library to display markdown text."
                     ,"HtmlTextView is an extended TextView component for Android, which can load HTML and converts it into Spannable for displaying it. It is a replacement for usage of the WebView component, which behaves strange on some Android versions, flickers while loading, etc."
                     ,"Library to implement the Bottom Navigation component from Material Design guidelines."
@@ -117,7 +108,7 @@ public class ActivityLibrary extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        AdapterItem_library adapterItem_library = new AdapterItem_library(getlist());
+        AdapterItem_library adapterItem_library = new AdapterItem_library(list());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapterItem_library);
         adapterItem_library.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -132,9 +123,9 @@ public class ActivityLibrary extends BaseActivity {
         });
         OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
-    private List<Library> getlist() {
+    private List<Library> list() {
         List<Library> list = new ArrayList<>();
-        for (int i = 0; i <16; i++) {
+        for (int i = 0; i <14; i++) {
             Library library = new Library(author[i],project[i],http[i],detail[i]);
             list.add(library);
         }

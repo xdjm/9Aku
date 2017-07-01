@@ -5,6 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
+
+import com.xd.commander.aku.fragment.FragmentAll;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +16,14 @@ import java.util.List;
  */
 
 public class AdapterViewPaper extends FragmentStatePagerAdapter {
-    private final List<Fragment> mFragments;
-    private final ArrayList<String> mFragmentTitles = new ArrayList<>();
-
-    public AdapterViewPaper(FragmentManager fm,ArrayList<Fragment> fragments,List<String> name) {
+    private String[] mTab = new String[]{"免费", "付费", "演示"};
+    public AdapterViewPaper(FragmentManager fm) {
         super(fm);
-        this.mFragments = fragments;
-        mFragmentTitles.addAll(name);
         notifyDataSetChanged();
     }
     @Override
     public Fragment getItem(int position) {
-        return mFragments.get(position);
+        return FragmentAll.newInstance(position);
     }
 
     @Override
@@ -33,10 +32,10 @@ public class AdapterViewPaper extends FragmentStatePagerAdapter {
     }
     @Override
     public int getCount() {
-        return mFragments.size();
+        return mTab.length;
     }
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragmentTitles.get(position);
+        return mTab[position];
     }
 }

@@ -1,36 +1,57 @@
 package com.xd.commander.aku.fragment;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.feedback.PgyFeedback;
+import com.pgyersdk.views.PgyerDialog;
 import com.tencent.bugly.beta.Beta;
+import com.xd.commander.aku.ActivityLibrary;
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterItem_other;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Other;
+import com.xd.commander.aku.interf.OnNetChangeListener;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 /**
  * Created by Administrator on 2017/4/27.
  */
 public class FragmentOther extends BaseFragment {
     @BindView(R.id.authorIcon)
     ImageView authorIcon;
+    @BindView(R.id.changetheme)
+    Switch aSwitch;
     @BindView(R.id.authorName)
     TextView authorName;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
-    private String[] other_tv = { "清除离线缓存","检查更新"};
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
+    private OnNetChangeListener onNetChangeListener;
+    private String[] other_tv = { "清除缓存","开源相关","意见反馈","检查更新","关于作者"};
     private int[] other_iv = {
-             R.drawable.vector_bmnavi_about, R.drawable.vector_bmnavi_about};
+             R.drawable.ic_delete_black_24dp,R.drawable.vector_navi_openedcode,R.drawable.vector_navi_crash,R.drawable.ic_system_update_black_24dp, R.drawable.ic_person_black_24dp};
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_other;
@@ -38,7 +59,9 @@ public class FragmentOther extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-
+        preferences = getContext().getSharedPreferences("theme",Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
+        editor =preferences.edit();
+        PgyCrashManager.register(getContext());
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterItem_other adapteritem_other = new AdapterItem_other(getList());
@@ -52,16 +75,41 @@ public class FragmentOther extends BaseFragment {
                         cleanCache();
                         break;
                     case 1:
+                        ActivityOptionsCompat compat = ActivityOptionsCompat.makeCustomAnimation(getContext(),
+                        R.anim.activity_in, R.anim.activity_out);
+                ActivityCompat.startActivity(getContext(),
+                        new Intent(getContext(), ActivityLibrary.class), compat.toBundle());
+                        break;
+                    case 2:
+                        PgyerDialog.setDialogTitleBackgroundColor("#1e89e7");
+                        PgyerDialog.setDialogTitleTextColor("#ffffff");
+                        PgyFeedback.getInstance().showDialog(getContext());
+                        break;
+                    case 3:
                         Beta.checkUpgrade();
+                        break;
+                    case 4:
+
                         break;
                 }
             }
         });
+        aSwitch.setChecked(preferences.getInt("theme",1)==2);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putInt("theme",preferences.getInt("theme",1)==1?2:1);
+                editor.apply();
+                onNetChangeListener.onSync(isChecked);
+            }
+        });
+        mRecyclerView.stopNestedScroll();
+        mRecyclerView.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
     }
-    private String[] other_tag = {"", "当前版本1.1"};
+    private String[] other_tag = {"", "","","当前版本1.1",""};
     private List<Other> getList() {
         List<Other> list = new ArrayList<>();
-        for (int i = 0; i <2; i++) {
+        for (int i = 0; i <5; i++) {
             Other other = new Other(other_iv[i],other_tv[i],other_tag[i]);
             list.add(other);
         }
@@ -106,5 +154,18 @@ public class FragmentOther extends BaseFragment {
         } else {
             show("所删除的文件不存在");
         }
+    }
+
+    public static FragmentOther newInstance() {
+        Bundle args = new Bundle();
+        FragmentOther fragment = new FragmentOther();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        onNetChangeListener =(OnNetChangeListener)activity;
     }
 }

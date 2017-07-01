@@ -53,22 +53,8 @@ public class ActivityLauncher extends BaseActivity {
             }
         });
     }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        int theme;
-        if (savedInstanceState == null) {
-            theme = ThemeUtil.getAppTheme(ActivityLauncher.this);
-        } else {
-            theme = savedInstanceState.getInt("theme");
-        }
-        setTheme(theme);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        //TODO nothing
+    public void onBackPressedSupport() {
     }
     private void dealStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
