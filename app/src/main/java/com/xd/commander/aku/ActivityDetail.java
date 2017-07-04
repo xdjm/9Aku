@@ -1,7 +1,4 @@
 package com.xd.commander.aku;
-/*
- * Created by Administrator on 2017/3/25.
- */
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -60,6 +57,7 @@ import butterknife.BindView;
 import okhttp3.ResponseBody;
 import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -69,7 +67,9 @@ import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
 import static com.xd.commander.aku.api.RetrofitHttp.createService;
 import static com.xd.commander.aku.util.HanHua.toHanHua;
 import static com.xd.commander.aku.util.TrueProjectName.trueProject;
-
+/**
+ * Created by Administrator on 2017/3/25.
+ */
 public class ActivityDetail extends BaseActivity {
     @BindView(R.id.tv_dt_1)
     TextView tvDt1;
@@ -111,6 +111,9 @@ public class ActivityDetail extends BaseActivity {
     ViewStub viewStub;
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
+    private Subscription subscription;
+    private Subscription subscription1;
+    private Subscription subscription2;
     private Document doc;
     private BottomSheetBehavior behavior;
     private String star;
@@ -178,12 +181,12 @@ public class ActivityDetail extends BaseActivity {
         getAuthor(bundle.getString("author"));
         //请求Markdown文档信息
         getMarkdown(bundle.getString("author"),trueProject(bundle.getString("project")));
-        //
+        //请求详细内容
         getData(bundle.getString("http"));
     }
 
     private void getData(String http) {
-        createService(getContext(), Constants.URL).getProjectDetail(http)
+        subscription=createService(getContext(), Constants.URL).getProjectDetail(http)
                 .subscribeOn(Schedulers.newThread())
                 .map(new Func1<ResponseBody, Detail>() {
                     @Override
@@ -280,7 +283,7 @@ public class ActivityDetail extends BaseActivity {
 
     private void getMarkdown(String author,String repos){
         viewStub.inflate();
-        createService(getContext(),Constants.GitHubMarkdown)
+        subscription1=createService(getContext(),Constants.GitHubMarkdown)
                 .getMarkdown(author,repos)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -308,7 +311,7 @@ public class ActivityDetail extends BaseActivity {
                 });
     }
     private void getAuthor(String name) {
-        createService(getContext(), Constants.GitHub)
+        subscription2=createService(getContext(), Constants.GitHub)
                 .getUserInfo(name)
                 .onErrorReturn(new Func1<Throwable, GitHubUserInfo>() {
                     @Override
@@ -434,6 +437,17 @@ public class ActivityDetail extends BaseActivity {
             super.onBackPressedSupport();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(subscription!=null&&!subscription.isUnsubscribed())
+            subscription.unsubscribe();
+        if(subscription1!=null&&!subscription1.isUnsubscribed())
+            subscription1.unsubscribe();
+        if(subscription2!=null&&!subscription2.isUnsubscribed())
+            subscription2.unsubscribe();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

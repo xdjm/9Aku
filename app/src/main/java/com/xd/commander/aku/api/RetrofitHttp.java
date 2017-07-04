@@ -23,6 +23,7 @@ import static com.xd.commander.aku.util.IsInternet.isInternetCanDo;
 
 /**
  * Created by Administrator on 2017/4/12.
+ * 已封装好的Retrofit
  */
 
 public class RetrofitHttp {

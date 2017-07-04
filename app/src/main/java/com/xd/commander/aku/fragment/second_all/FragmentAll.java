@@ -1,4 +1,4 @@
-package com.xd.commander.aku.fragment;
+package com.xd.commander.aku.fragment.second_all;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

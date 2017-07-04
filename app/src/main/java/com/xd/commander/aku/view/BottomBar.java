@@ -12,10 +12,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by YoKeyword on 16/6/3.
@@ -26,7 +24,7 @@ public class BottomBar extends LinearLayout {
     private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
     private boolean mVisible = true;
 
-    private List<BottomBarTab> mTabs = new ArrayList<>();
+    private final List<BottomBarTab> mTabs = new ArrayList<>();
     public  LinearLayout mTabLayout;
 
     private LayoutParams mTabParams;
@@ -48,11 +46,6 @@ public class BottomBar extends LinearLayout {
 
     private void init(Context context, AttributeSet attrs) {
         setOrientation(VERTICAL);
-
-//        ImageView shadowView = new ImageView(context);
-//        shadowView.setBackgroundResource(R.drawable.actionbar_shadow_up);
-//        addView(shadowView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         mTabLayout = new LinearLayout(context);
         mTabLayout.setBackgroundColor(Color.WHITE);
         mTabLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -130,12 +123,8 @@ public class BottomBar extends LinearLayout {
         mCurrentPosition = ss.position;
     }
 
-    public int getCurrentItemPosition() {
-        return mCurrentPosition;
-    }
-
     static class SavedState extends BaseSavedState {
-        private int position;
+        private final int position;
 
         public SavedState(Parcel source) {
             super(source);
@@ -163,7 +152,6 @@ public class BottomBar extends LinearLayout {
             }
         };
     }
-
 
     public void hide() {
         hide(true);

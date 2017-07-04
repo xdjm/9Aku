@@ -1,14 +1,13 @@
-package com.xd.commander.aku;
+package com.xd.commander.aku.fragment.first_sort;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-
+import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
-import com.xd.commander.aku.fragment.FragmentOther;
 
 /**
- * Copyright (C) 2017 By yjm at 14:00
+ * Copyright (C) 2017 By yjm at 13:26
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,29 +18,27 @@ import com.xd.commander.aku.fragment.FragmentOther;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class FragmentFourthAll extends BaseFragment{
-
-    public static FragmentFourthAll newInstance() {
-        Bundle args = new Bundle();
-        FragmentFourthAll fragment = new FragmentFourthAll();
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FragmentFirstAll extends BaseFragment{
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_fourth;
+        return R.layout.fragment_first;
     }
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
 
     }
+
+    public static FragmentFirstAll newInstance() {
+        return new FragmentFirstAll();
+    }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-
-        if (findChildFragment(FragmentOther.class) == null) {
-            loadRootFragment(R.id.fl_fourth_container, FragmentOther.newInstance());
+        if (findChildFragment(FragmentSort.class) == null) {
+            loadRootFragment(R.id.fl_first_container, FragmentSort.newInstance());
         }
     }
 }
+

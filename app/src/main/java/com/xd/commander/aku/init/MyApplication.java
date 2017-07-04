@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import com.pgyersdk.crash.PgyCrashManager;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.xd.commander.aku.constants.Constants;
 
@@ -21,20 +22,22 @@ public class MyApplication extends Application implements Application.ActivityLi
     /**
      * 初始化，定义全局上下文
      */
+    private Activity visibleActivity;
     @Override
     public void onCreate() {
         super.onCreate();
-//        LeakCanary.install(this);
+        //init LeakCanary
+        LeakCanary.install(this);
+        //init pgy_crash_report_from_user
         PgyCrashManager.register(this);
-        //初始BUGly
+        //init bugly_crash_report_from_net
         Bugly.init(getApplicationContext(), Constants.Key_Bugly, true);
-        //TODO 全局监听网络变化 弹小吃
         registerActivityLifecycleCallbacks(this);
         registerReceiver(broadcastReceiver, new IntentFilter(Constants.NETWORK_DETECTOR));
         LitePal.initialize(getApplicationContext());
         Connector.getDatabase();
     }
-    Activity visibleActivity;
+
     final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

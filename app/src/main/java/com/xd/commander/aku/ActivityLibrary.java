@@ -23,7 +23,7 @@ public class ActivityLibrary extends BaseActivity {
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
 
-    private String[] project =
+    private final   String[]  project =
             {
                     "FabOptions"
                     ,"MarkdownView"
@@ -40,7 +40,7 @@ public class ActivityLibrary extends BaseActivity {
                     ,"Butter Knife"
                     ,"QingtingBannerView"
             };
-    private String[] author =
+    private final String[]  author =
             {
                    "JoaquimLey"
                     ,"tiagohm"
@@ -59,7 +59,7 @@ public class ActivityLibrary extends BaseActivity {
 
 
             };
-    private String[] http =
+    private final String[] http =
             {
                    "https://android-arsenal.com/details/1/4734"
                     ,"https://android-arsenal.com/details/1/5386"
@@ -76,7 +76,7 @@ public class ActivityLibrary extends BaseActivity {
                     ,"https://android-arsenal.com/details/1/131"
                     ,"https://android-arsenal.com/details/1/3712"
             };
-    private String[] detail =
+    private final String[] detail =
             {
                     "A multi-functional FAB component with customizable options."
                     ,"Android library to display markdown text."

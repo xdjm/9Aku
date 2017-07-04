@@ -2,21 +2,17 @@ package com.xd.commander.aku.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 
-import com.xd.commander.aku.fragment.FragmentAll;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.xd.commander.aku.fragment.second_all.FragmentAll;
 
 /**
  * Created by Administrator on 2017/4/19.
  */
 
 public class AdapterViewPaper extends FragmentStatePagerAdapter {
-    private String[] mTab = new String[]{"免费", "付费", "演示"};
+    private final String[] mTab = new String[]{"免费", "付费", "演示"};
     public AdapterViewPaper(FragmentManager fm) {
         super(fm);
         notifyDataSetChanged();

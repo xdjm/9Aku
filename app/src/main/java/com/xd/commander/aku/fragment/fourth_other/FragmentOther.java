@@ -1,4 +1,4 @@
-package com.xd.commander.aku.fragment;
+package com.xd.commander.aku.fragment.fourth_other;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,11 +10,9 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.feedback.PgyFeedback;
@@ -26,31 +24,25 @@ import com.xd.commander.aku.adapter.AdapterItem_other;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Other;
 import com.xd.commander.aku.interf.OnNetChangeListener;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 /**
  * Created by Administrator on 2017/4/27.
  */
 public class FragmentOther extends BaseFragment {
-    @BindView(R.id.authorIcon)
-    ImageView authorIcon;
     @BindView(R.id.changetheme)
-    Switch aSwitch;
-    @BindView(R.id.authorName)
-    TextView authorName;
+    SwitchCompat aSwitch;
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
     private OnNetChangeListener onNetChangeListener;
-    private String[] other_tv = { "清除缓存","开源相关","意见反馈","检查更新","关于作者"};
-    private int[] other_iv = {
+    private final String[] other_tv = { "清除缓存","开源相关","意见反馈","检查更新","关于作者"};
+    private final int[] other_iv = {
              R.drawable.ic_delete_black_24dp,R.drawable.vector_navi_openedcode,R.drawable.vector_navi_crash,R.drawable.ic_system_update_black_24dp, R.drawable.ic_person_black_24dp};
     @Override
     protected int getLayoutId() {
@@ -77,8 +69,7 @@ public class FragmentOther extends BaseFragment {
                     case 1:
                         ActivityOptionsCompat compat = ActivityOptionsCompat.makeCustomAnimation(getContext(),
                         R.anim.activity_in, R.anim.activity_out);
-                ActivityCompat.startActivity(getContext(),
-                        new Intent(getContext(), ActivityLibrary.class), compat.toBundle());
+                        ActivityCompat.startActivity(getContext(), new Intent(getContext(), ActivityLibrary.class), compat.toBundle());
                         break;
                     case 2:
                         PgyerDialog.setDialogTitleBackgroundColor("#1e89e7");
@@ -89,6 +80,7 @@ public class FragmentOther extends BaseFragment {
                         Beta.checkUpgrade();
                         break;
                     case 4:
+                        //TODO 介绍自己
 
                         break;
                 }
@@ -106,7 +98,7 @@ public class FragmentOther extends BaseFragment {
         mRecyclerView.stopNestedScroll();
         mRecyclerView.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
     }
-    private String[] other_tag = {"", "","","当前版本1.1",""};
+    private final String[] other_tag = {"", "","","当前版本1.2",""};
     private List<Other> getList() {
         List<Other> list = new ArrayList<>();
         for (int i = 0; i <5; i++) {

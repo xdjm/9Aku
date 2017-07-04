@@ -1,25 +1,15 @@
 <resources>
     <string name="app_name">AKu</string>
     <string name="action_change_colors">change style</string>
-    <string name="error_internet">网络404</string>
-    <string name="search">搜索&#8230;</string>
-    <string name="communicatename">其他</string>
-    <string name="author_name">编程 春和景明</string>
-    <string name="translator_name">翻译 宏仔</string>
-    <string name="linsences_name">开源相关</string>
-    <string name="about">意见反馈</string>
-    <string name="app_detail">ANDROID-ARSENAL.COM 非官方客户端</string>
-    <string name="developer">开发者</string>
-    <string name="author_detail">大四狗一枚</string>
-    <string name="translator_detail">等待解放的高三党</string>
-    <string name="netisok">网络恢复</string>
     <string name="library">开源相关</string>
     <string name="sort">分类</string>
     <string name="app_details">拥有工具、框架和演示的Android开发人员门户</string>
-    <string name="viper">顾问 小白</string>
     <string name="share_info">分享一个Android开源库</string>
     <string name="netauthor">vladislav_bauer</string>
     <string name="netauthor_">网站作者</string>
+    <string name="message">消息</string>
+    <string name="_sort">排序</string>
+    <string name="nightday">夜间模式</string>
     <integer-array name="color_arsenal">
         <item>@color/google_green</item>
     </integer-array>

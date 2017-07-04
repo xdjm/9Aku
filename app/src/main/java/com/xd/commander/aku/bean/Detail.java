@@ -54,7 +54,6 @@ public class Detail extends DataSupport {
     private final String dd_0;
     private final String dt_1;
     private final String dd_1;
-    private final String markdown;
     private final String http;
 
     public int getStar() {
@@ -77,6 +76,7 @@ public class Detail extends DataSupport {
     private final int watch;
     private final int fork;
     private final int issue;
+    private final String markdown;
 
     @Override
     public String toString() {

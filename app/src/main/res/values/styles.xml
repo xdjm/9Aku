@@ -55,8 +55,5 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:background">@android:color/transparent</item>
-
-
     </style>
-
 </resources>

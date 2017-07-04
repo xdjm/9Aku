@@ -55,15 +55,4 @@ public class Project extends DataSupport{
 	private final String desc;
     private final String newinfo;
     private final String category;
-
-    public Project(Project project) {
-        this.http = project.getHttp();
-        this.projectName = project.getProjectName();
-        this.tag = project.getTag();
-        this.time = project.getTime();
-        this.author = project.getAuthor();
-        this.desc = project.getDesc();
-        this.newinfo = project.getNewinfo();
-        this.category = project.getCategory();
-    }
 }

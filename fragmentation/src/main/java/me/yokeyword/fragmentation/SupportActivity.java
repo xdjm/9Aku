@@ -63,7 +63,7 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
      * 不建议复写该方法,请使用 {@link #onBackPressedSupport} 代替
      */
     @Override
-    final public void onBackPressed() {
+     public void onBackPressed() {
         mDelegate.onBackPressed();
     }
 

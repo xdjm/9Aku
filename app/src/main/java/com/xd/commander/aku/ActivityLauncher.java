@@ -1,5 +1,4 @@
 package com.xd.commander.aku;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.view.WindowManager;
 
 import com.jrummyapps.android.widget.AnimatedSvgView;
 import com.xd.commander.aku.base.BaseActivity;
-import com.xd.commander.aku.util.ThemeUtil;
 
 import java.lang.reflect.Field;
 
@@ -53,9 +51,11 @@ public class ActivityLauncher extends BaseActivity {
             }
         });
     }
+
     @Override
     public void onBackPressedSupport() {
     }
+
     private void dealStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int statusBarHeight = getStatusBarHeight();

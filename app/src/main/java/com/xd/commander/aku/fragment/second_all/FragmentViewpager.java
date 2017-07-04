@@ -1,4 +1,4 @@
-package com.xd.commander.aku;
+package com.xd.commander.aku.fragment.second_all;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
+import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterViewPaper;
 import com.xd.commander.aku.base.BaseFragment;
 
@@ -24,15 +24,8 @@ import com.xd.commander.aku.base.BaseFragment;
  * limitations under the License.
  */
 public class FragmentViewpager extends BaseFragment{
-    private TabLayout mTab;
-    private ViewPager mViewPager;
-    private SharedPreferences sharedPreferences;
     public static FragmentViewpager newInstance(){
-        Bundle args = new Bundle();
-
-        FragmentViewpager fragment = new FragmentViewpager();
-        fragment.setArguments(args);
-        return fragment;
+        return new FragmentViewpager();
     }
 
     @Override
@@ -43,13 +36,13 @@ public class FragmentViewpager extends BaseFragment{
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
 
-        sharedPreferences= getContext().getSharedPreferences("theme", Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
-        mTab = (TabLayout) view.findViewById(R.id.tab);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("theme", Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
+        TabLayout mTab = (TabLayout) view.findViewById(R.id.tab);
         if(sharedPreferences.getInt("theme",1)==1)
             mTab.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
         else
             mTab.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(),android.R.color.white));
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         mTab.addTab(mTab.newTab());
         mTab.addTab(mTab.newTab());

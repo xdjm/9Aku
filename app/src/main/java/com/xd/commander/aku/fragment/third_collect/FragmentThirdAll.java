@@ -1,11 +1,11 @@
-package com.xd.commander.aku;
+package com.xd.commander.aku.fragment.third_collect;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
-import com.xd.commander.aku.fragment.FragmentCollect;
 
 /**
  * Copyright (C) 2017 By yjm at 13:53

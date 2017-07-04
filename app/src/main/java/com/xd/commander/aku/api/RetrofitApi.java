@@ -11,12 +11,10 @@ import rx.Observable;
 
 /**
  * Created by Administrator on 2017/4/9.
+ * 网络请求接口
  */
 
 public interface RetrofitApi {
-    /**
-     * 网络请求接口
-     */
 //    https://android-arsenal.com/?page=1&sort=updated&category=1
     /**
      * @param page     页码

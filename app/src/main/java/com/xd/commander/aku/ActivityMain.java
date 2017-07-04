@@ -10,8 +10,12 @@ import android.view.WindowManager;
 import com.xd.commander.aku.base.BaseActivity;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
+import com.xd.commander.aku.fragment.first_sort.FragmentFirstAll;
+import com.xd.commander.aku.fragment.fourth_other.FragmentFourthAll;
+import com.xd.commander.aku.fragment.second_all.FragmentSecondAll;
+import com.xd.commander.aku.fragment.third_collect.FragmentThirdAll;
 import com.xd.commander.aku.interf.OnNetChangeListener;
-import com.xd.commander.aku.interf.SnackerBarShow;
+import com.xd.commander.aku.interf.SnackBarShow;
 import com.xd.commander.aku.util.ThemeUtil;
 import com.xd.commander.aku.view.BottomBar;
 import com.xd.commander.aku.view.BottomBarTab;
@@ -36,9 +40,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * //        ┃☆┃┗┷┛┗┷┛┗┷┛┗┷┛┃★┃
  * //        ╚♂╝↘*≡热≡爱≡人≡民≡*↙╚♀╝
  ***************************************************************/
-public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToFirstListener,OnNetChangeListener,SnackerBarShow {
+public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToFirstListener,OnNetChangeListener,SnackBarShow {
     private BottomBar mBottomBar;
-    private SupportFragment[] mFragments = new SupportFragment[4];
+    private final SupportFragment[] mFragments = new SupportFragment[4];
 
     @Override
     protected int getLayoutId() {
@@ -113,13 +117,7 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
             }
         }
     }
-    @Override
-    public void onBackPressedSupport() {
-        if (getSupportFragmentManager().getBackStackEntryCount() >= 1)
-            pop();
-            else
-            System.exit(0);
-    }
+
     private void goToSearchActivity(String searchInfo) {
         Intent intent = new Intent(getContext(), ActivtyCategory.class);
         intent.putExtra("url", "search?q=" + searchInfo);
@@ -162,5 +160,11 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
     public void show(String message) {
         if(isInteger(message))
             mBottomBar.getItem(2).setUnreadCount(getCollectCount());
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Intent.ACTION_MAIN)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addCategory(Intent.CATEGORY_HOME));
     }
 }

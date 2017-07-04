@@ -11,11 +11,9 @@ import com.xd.commander.aku.bean.Project;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/4/11.
- */
 
 /**
+ * Created by Administrator on 2017/4/11.
  * 基于BRVAH的RecyclerView适配器
  */
 public class AdapterItem extends BaseQuickAdapter<Project, BaseViewHolder> {
@@ -33,13 +31,13 @@ public class AdapterItem extends BaseQuickAdapter<Project, BaseViewHolder> {
      */
     @Override
     protected void convert(BaseViewHolder helper, Project item) {
-        /**
+        /*
          * 以开源库名称的首字母生成图标
          */
 //        TextDrawable drawable = TextDrawable.builder()
 //                .buildRound(String.valueOf(item.getProjectName().charAt(0)),
 //                        ColorGenerator.MATERIAL.getColor(item.getTime()));
-        /**
+        /*
          * 装载数据
          */
         helper.setText(R.id.tag,item.getTag())
@@ -65,7 +63,7 @@ public class AdapterItem extends BaseQuickAdapter<Project, BaseViewHolder> {
         }
         if(item.getNewinfo().equals(""))
             helper.setBackgroundRes(R.id.tagnew,R.drawable.shape_item_old);
-        /**
+        /*
          * 装载概略描述
          */
         ((HtmlTextView)helper.getView(R.id.desc)).setHtml(item.getDesc()

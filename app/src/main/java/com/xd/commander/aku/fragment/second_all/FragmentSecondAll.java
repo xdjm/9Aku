@@ -1,9 +1,9 @@
-package com.xd.commander.aku;
+package com.xd.commander.aku.fragment.second_all;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-
+import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
 
 /**
@@ -30,10 +30,7 @@ public class FragmentSecondAll extends BaseFragment{
     }
 
     public static FragmentSecondAll newInstance() {
-        Bundle args = new Bundle();
-        FragmentSecondAll fragment = new FragmentSecondAll();
-        fragment.setArguments(args);
-        return fragment;
+        return new FragmentSecondAll();
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -41,9 +38,5 @@ public class FragmentSecondAll extends BaseFragment{
         if (findChildFragment(FragmentViewpager.class) == null) {
             loadRootFragment(R.id.fl_second_container, FragmentViewpager.newInstance());
         }
-    }
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
     }
 }
