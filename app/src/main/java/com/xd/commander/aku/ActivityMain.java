@@ -1,12 +1,15 @@
 package com.xd.commander.aku;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.WindowManager;
+
 import com.xd.commander.aku.base.BaseActivity;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Project;
@@ -19,9 +22,13 @@ import com.xd.commander.aku.interf.SnackBarShow;
 import com.xd.commander.aku.util.ThemeUtil;
 import com.xd.commander.aku.view.BottomBar;
 import com.xd.commander.aku.view.BottomBarTab;
+
 import org.litepal.crud.DataSupport;
+
 import java.util.regex.Pattern;
+
 import me.yokeyword.fragmentation.SupportFragment;
+
 /***************************************************************
  * //         ,--^----------,--------,-----,-------^--,
  * //        | |||||||||   `--------'     |          O
@@ -40,7 +47,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * //        ┃☆┃┗┷┛┗┷┛┗┷┛┗┷┛┃★┃
  * //        ╚♂╝↘*≡热≡爱≡人≡民≡*↙╚♀╝
  ***************************************************************/
-public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToFirstListener,OnNetChangeListener,SnackBarShow {
+public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToFirstListener, OnNetChangeListener, SnackBarShow {
     private BottomBar mBottomBar;
     private final SupportFragment[] mFragments = new SupportFragment[4];
 
@@ -84,27 +91,27 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
         }
         //添加图标
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        mBottomBar.mTabLayout.setBackgroundColor(sharedPreferences.getInt("theme",1)==1?Color.WHITE:Color.GRAY);
+        mBottomBar.mTabLayout.setBackgroundColor(sharedPreferences.getInt("theme", 1) == 1 ? Color.WHITE : ContextCompat.getColor(getContext(),R.color.color_qianhei));
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_sort))
                 .addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_all))
                 .addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_collect))
                 .addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_about));
         mBottomBar.getItem(2).setUnreadCount(getCollectCount());
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
-                                                @Override
-                                                public void onTabSelected(int position, int prePosition) {
-                                                    showHideFragment(mFragments[position], mFragments[prePosition]);
-                                                }
+            @Override
+            public void onTabSelected(int position, int prePosition) {
+                showHideFragment(mFragments[position], mFragments[prePosition]);
+            }
 
-                                                @Override
-                                                public void onTabUnselected(int position) {
+            @Override
+            public void onTabUnselected(int position) {
 
-                                                }
+            }
 
-                                                @Override
-                                                public void onTabReselected(int position) {
-                                                }
-                                            });
+            @Override
+            public void onTabReselected(int position) {
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -118,13 +125,7 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
         }
     }
 
-    private void goToSearchActivity(String searchInfo) {
-        Intent intent = new Intent(getContext(), ActivtyCategory.class);
-        intent.putExtra("url", "search?q=" + searchInfo);
-        intent.putExtra("category", searchInfo);
-        intent.putExtra("what", "搜索");
-        startActivity(intent);
-    }
+
     private boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
@@ -152,19 +153,30 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
         super.onStart();
         mBottomBar.getItem(2).setUnreadCount(getCollectCount());
     }
-    private int getCollectCount(){
+
+    private int getCollectCount() {
         return DataSupport.findAll(Project.class).size();
     }
 
     @Override
     public void show(String message) {
-        if(isInteger(message))
+        if (isInteger(message))
             mBottomBar.getItem(2).setUnreadCount(getCollectCount());
     }
+
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(Intent.ACTION_MAIN)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .addCategory(Intent.CATEGORY_HOME));
+        if (mBottomBar.mCurrentPosition!=0) {
+            mBottomBar.setCurrentItem(0);
+        } else {
+            startActivity(new Intent(Intent.ACTION_MAIN)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .addCategory(Intent.CATEGORY_HOME));
+        }
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, ActivityMain.class);
+        context.startActivity(intent);
     }
 }

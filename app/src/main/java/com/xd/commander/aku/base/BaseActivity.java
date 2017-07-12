@@ -3,11 +3,8 @@ package com.xd.commander.aku.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatDelegate;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.view.Window;
-
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.util.ThemeUtil;
 
@@ -65,5 +62,13 @@ public abstract class BaseActivity extends SupportActivity {
         finish();
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
         startActivity(intent);
+    }
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            ActivityCompat.finishAfterTransition(this);
+        }
     }
 }

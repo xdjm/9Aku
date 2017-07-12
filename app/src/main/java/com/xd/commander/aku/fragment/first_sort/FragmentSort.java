@@ -6,18 +6,23 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -25,9 +30,7 @@ import com.xd.commander.aku.ActivtyCategory;
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.constants.Constants;
-
 import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,11 +40,14 @@ import cc.solart.wave.WaveSideBarView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class FragmentSort extends BaseFragment {
+    @BindView(R.id.search)
+    FloatingActionButton floatingActionButton;
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
     @BindView(R.id.side_view)
     WaveSideBarView sideView;
     private LinearLayoutManager mLayoutManager;
+    private int mScrollTotal;
 
     @Override
     protected int getLayoutId() {
@@ -52,7 +58,7 @@ public class FragmentSort extends BaseFragment {
         return new FragmentSort();
     }
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, final Bundle savedInstanceState) {
         final List<String> name = new ArrayList<>();
         String[]s = new String[231];
         for(int i=0;i<231;i++){
@@ -92,8 +98,8 @@ public class FragmentSort extends BaseFragment {
                 for (int i = 0; i < childCount - 1; i++) {
                     if (i != 0) {
                         View view = parent.getChildAt(i);
-                        float top = view.getBottom()+10;
-                        float bottom = view.getBottom() + 11;
+                        float top = view.getBottom();
+                        float bottom = view.getBottom() + 1;
                         c.drawRect(left, top, right-100, bottom, dividerPaint);
                     }
                 }
@@ -127,12 +133,67 @@ public class FragmentSort extends BaseFragment {
             }
         });
         OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                mScrollTotal += dy;
+                if (dy > 5) {
+                    floatingActionButton.hide();
+                } else if (dy < -5) {
+                    floatingActionButton.show();
+                }
+            }
+        });
+        final View contentView = getLayoutInflater(savedInstanceState).inflate(R.layout.fragment_search_layout,null);
+        final PopupWindow popWnd = new PopupWindow (getContext());
+        popWnd.setContentView(contentView);
+        popWnd.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popWnd.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popWnd.setFocusable(true);
+        popWnd.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popWnd.setOutsideTouchable(true);
+        popWnd.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                floatingActionButton.show();
+            }
+        });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionButton.hide();
+                popWnd.showAtLocation(floatingActionButton, Gravity.CENTER,0,0);
+            }
+        });
+        final SearchView searchView = (SearchView)contentView.findViewById(R.id.search);
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                goSearchActivity(query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
     private void goToSearchActivity(int site,int pos) {
         Intent intent = new Intent(getContext(), ActivtyCategory.class);
         intent.putExtra("url", "tag/" + site);
         intent.putExtra("category", Constants.hanhua[pos]);
         intent.putExtra("what", "分类");
+        startActivity(intent);
+    }
+    private void goSearchActivity(String searchInfo) {
+        Intent intent = new Intent(getContext(), ActivtyCategory.class);
+        intent.putExtra("url", "search?q=" + searchInfo);
+        intent.putExtra("category", searchInfo);
+        intent.putExtra("what", "搜索");
         startActivity(intent);
     }
 }

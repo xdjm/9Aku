@@ -142,7 +142,6 @@ public class FragmentAll extends BaseFragment {
                         } catch (IOException e) {
                            show(e.toString());
                         }
-                        Log.i("yjm",list_back.toString());
                         return list_back;
                     }
                 })

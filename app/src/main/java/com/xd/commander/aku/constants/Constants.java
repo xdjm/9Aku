@@ -9,6 +9,7 @@ public final class Constants {
      * 静态常量
      */
 
+    public final static String AUTHOR_AVA="https://avatars3.githubusercontent.com/u/578021?v=3&s=100";
     public final static String URL = "https://android-arsenal.com/";
     public final static String GitHub = "https://api.github.com/";
     public final static String GitHubSource = "https://codeload.github.com/";

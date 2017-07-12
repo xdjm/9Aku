@@ -36,12 +36,7 @@ public class FragmentViewpager extends BaseFragment{
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("theme", Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
         TabLayout mTab = (TabLayout) view.findViewById(R.id.tab);
-        if(sharedPreferences.getInt("theme",1)==1)
-            mTab.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
-        else
-            mTab.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(),android.R.color.white));
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         mTab.addTab(mTab.newTab());

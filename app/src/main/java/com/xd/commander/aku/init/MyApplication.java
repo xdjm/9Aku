@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import com.pgyersdk.crash.PgyCrashManager;
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.xd.commander.aku.constants.Constants;
 
@@ -27,7 +26,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     public void onCreate() {
         super.onCreate();
         //init LeakCanary
-        LeakCanary.install(this);
+       // LeakCanary.install(this);
         //init pgy_crash_report_from_user
         PgyCrashManager.register(this);
         //init bugly_crash_report_from_net

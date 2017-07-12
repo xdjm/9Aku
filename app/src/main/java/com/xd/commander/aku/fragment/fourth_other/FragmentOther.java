@@ -4,15 +4,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.feedback.PgyFeedback;
@@ -23,16 +26,22 @@ import com.xd.commander.aku.R;
 import com.xd.commander.aku.adapter.AdapterItem_other;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.bean.Other;
+import com.xd.commander.aku.constants.Constants;
 import com.xd.commander.aku.interf.OnNetChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Administrator on 2017/4/27.
  */
 public class FragmentOther extends BaseFragment {
+    @BindView(R.id.author)
+    CardView cardView;
+    @BindView(R.id.authorIcon)
+    CircleImageView circleImageView;
     @BindView(R.id.changetheme)
     SwitchCompat aSwitch;
     @BindView(R.id.mRecyclerView)
@@ -54,6 +63,7 @@ public class FragmentOther extends BaseFragment {
         preferences = getContext().getSharedPreferences("theme",Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
         editor =preferences.edit();
         PgyCrashManager.register(getContext());
+        Glide.with(getContext()).load(Constants.AUTHOR_AVA).dontAnimate().into(circleImageView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterItem_other adapteritem_other = new AdapterItem_other(getList());
@@ -81,7 +91,10 @@ public class FragmentOther extends BaseFragment {
                         break;
                     case 4:
                         //TODO 介绍自己
-
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Uri uri = Uri.parse("https://github.com/xdjm");
+                        intent.setData(uri);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -97,6 +110,15 @@ public class FragmentOther extends BaseFragment {
         });
         mRecyclerView.stopNestedScroll();
         mRecyclerView.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse("https://github.com/vbauer");
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        });
     }
     private final String[] other_tag = {"", "","","当前版本1.2",""};
     private List<Other> getList() {

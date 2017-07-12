@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color> 状态栏
-    <color name="colorPrimaryDark">#1e89e7</color> appbarlayout
-    <color name="colorAccent">#eef0f4</color> 主界面背景
+    <color name="colorPrimary">#1976d2</color> 状态栏
+    <color name="colorPrimaryDark">#2196f3</color>
+    <color name="colorAccent">#1976d2</color> 主界面背景
     <color name="color_Danhong">#ff8a80</color>
     <color name="color_Shenhei">#3f3f3f</color>
     <color name="color_Shenhuang">#ffe04b</color>
     <color name="google_green">#12c700</color>
     <color name="unselect">#c9c9c9</color>
+    <color name="color_qianhei">#464646</color>
 </resources>

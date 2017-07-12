@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/fruitImageView"
+    <com.synnapps.carouselview.CarouselView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/carouselView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/labelTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/shape_collect_head"
-        android:fontFamily="sans-serif-thin"
-        android:padding="3dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="14sp" />
-
-</RelativeLayout>
+        android:layout_height="200dp"
+        app:fillColor="#FFFFFFFF"
+        app:pageColor="#00000000"
+        app:radius="3dp"
+        app:slideInterval="3000"
+        app:strokeColor="#FF777777"
+        app:strokeWidth="1dp" />
+    <include layout="@layout/item_recycelerview"/>
+</LinearLayout>

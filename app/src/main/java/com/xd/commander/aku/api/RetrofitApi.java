@@ -1,5 +1,6 @@
 package com.xd.commander.aku.api;
 import com.xd.commander.aku.bean.GitHubUserInfo;
+import com.xd.commander.aku.bean.Repos;
 import com.xd.commander.aku.constants.Constants;
 
 import okhttp3.ResponseBody;
@@ -58,6 +59,8 @@ public interface RetrofitApi {
     );
     //https://raw.githubusercontent.com/safetysystemtechnology/android-shake-detector/master/README.md
     //有的项目名称中带有空格，导致跳转markedown失败，解决方案为在把项目名称中带有空格的换成-
-    @GET("{user}/{project}/master/README.md")
-    Observable<ResponseBody> getMarkdown(@Path("user")String user,@Path("project")String project);
+    @GET
+    Observable<Repos> getRepos(@Url String net);
+    @GET
+    Observable<ResponseBody> getMarkdown(@Url String http);
 }

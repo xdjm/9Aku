@@ -1,11 +1,13 @@
 package com.xd.commander.aku;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +21,6 @@ import com.xd.commander.aku.adapter.AdapterItem;
 import com.xd.commander.aku.base.BaseActivity;
 import com.xd.commander.aku.bean.Project;
 import com.xd.commander.aku.constants.Constants;
-import com.xd.commander.aku.util.ThemeUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,13 +28,14 @@ import org.jsoup.select.Elements;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import butterknife.BindView;
 import okhttp3.ResponseBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
 import static com.xd.commander.aku.api.RetrofitHttp.createService;
 import static com.xd.commander.aku.util.HanHua.toHanHua;
 
@@ -53,6 +55,8 @@ public class ActivtyCategory extends BaseActivity {
     private AdapterItem adapterItem;
     private Bundle bundle;
     private List<Project> list;
+    private String[] fenlei ={"注册时间","最近更新","评价","名称"};
+    private String[] paixu = {"?sort=created","?sort=updated","?sort=rating","?sort=name"};
 
     @Override
     protected int getLayoutId() {
@@ -79,6 +83,8 @@ public class ActivtyCategory extends BaseActivity {
         }
         dealStatusBar();
         bundle = getIntent().getExtras();
+        if(Objects.equals(bundle.getString("what"), "搜索"))
+            sort.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(true);
         getCategoryData(bundle.getString("url"));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -93,6 +99,22 @@ public class ActivtyCategory extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder a = new AlertDialog.Builder(getContext());
+                a.setTitle("排序");
+                a.setSingleChoiceItems(fenlei, 4, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        swipeRefreshLayout.setRefreshing(true);
+                        getCategoryData(bundle.getString("url")+paixu[which]);
+                        dialog.dismiss();
+                    }
+                });
+                a.show();
             }
         });
     }
@@ -212,18 +234,6 @@ public class ActivtyCategory extends BaseActivity {
                         }
                     }
                 });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        int theme;
-        if (savedInstanceState == null) {
-            theme = ThemeUtil.getAppTheme(ActivtyCategory.this);
-        } else {
-            theme = savedInstanceState.getInt("theme");
-        }
-        setTheme(theme);
-        super.onCreate(savedInstanceState);
     }
     private void dealStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

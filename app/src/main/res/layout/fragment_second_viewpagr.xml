@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -9,12 +10,10 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TabLayout
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
             android:id="@+id/tab"
             android:layout_width="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabSelectedTextColor="@color/color_Danhong"
-            app:tabTextColor="@android:color/darker_gray"
             android:layout_height="?attr/actionBarSize"/>
 
     </android.support.design.widget.AppBarLayout>

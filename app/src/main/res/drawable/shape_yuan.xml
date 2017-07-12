@@ -2,7 +2,10 @@
     android:color="?android:colorPrimaryDark">
 
     <item>
-        <shape android:shape="oval">
+        <shape android:shape="ring"
+            android:innerRadius="0dp"
+            android:thickness="50dp"
+            android:useLevel="false">
             <solid android:color="?android:colorPrimaryDark" />
         </shape>
     </item>

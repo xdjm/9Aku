@@ -22,8 +22,8 @@ public class Project extends DataSupport{
         this.time = time;
         this.tag = tag;
 		this.desc =desc;
-        this.newinfo= newinfo;
-        this.category= category;
+        this.newinfo = newinfo;
+        this.category = category;
     }
 	public String getDesc() {
         return desc;

@@ -15,9 +15,17 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">#464646</item>
-        <item name="colorAccent">#666666</item>
+        <item name="colorAccent">#464646</item>
         <item name="colorPrimaryDark">#212121</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentTransitions">true</item>
+    </style>
+    <style name="Launcher" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>

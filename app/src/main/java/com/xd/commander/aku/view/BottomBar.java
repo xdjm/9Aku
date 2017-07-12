@@ -24,11 +24,11 @@ public class BottomBar extends LinearLayout {
     private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
     private boolean mVisible = true;
 
-    private final List<BottomBarTab> mTabs = new ArrayList<>();
+    public final List<BottomBarTab> mTabs = new ArrayList<>();
     public  LinearLayout mTabLayout;
 
     private LayoutParams mTabParams;
-    private int mCurrentPosition = 0;
+    public int mCurrentPosition = 0;
     private OnTabSelectedListener mListener;
 
     public BottomBar(Context context) {
