@@ -39,6 +39,6 @@
 
 ## 交流
 
-群：欢迎加入AKu，[link](https://jq.qq.com/?_wv=1027&k=4BkCDgk)
+群：欢迎加入[AKu](https://jq.qq.com/?_wv=1027&k=4BkCDgk)
 
 人：欢迎骚扰春和景明，QQ：727787745
