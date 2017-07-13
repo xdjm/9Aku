@@ -96,7 +96,10 @@ public class FragmentOther extends BaseFragment {
                         startActivity(intent);
                         break;
                     case 5:
-
+                        Intent intenttt = new Intent(Intent.ACTION_VIEW);
+                        Uri uriii = Uri.parse("https://github.com/xdjm/9Aku");
+                        intenttt.setData(uriii);
+                        startActivity(intenttt);
                         break;
                     case 6:
                         //TODO 介绍自己
@@ -129,10 +132,10 @@ public class FragmentOther extends BaseFragment {
             }
         });
     }
-    private final String[] other_tag = {"", "","","当前版本1.4",""};
+    private final String[] other_tag = {"", "","","当前版本1.4","AKu","","xdjm"};
     private List<Other> getList() {
         List<Other> list = new ArrayList<>();
-        for (int i = 0; i <5; i++) {
+        for (int i = 0; i <7; i++) {
             Other other = new Other(other_iv[i],other_tv[i],other_tag[i]);
             list.add(other);
         }
