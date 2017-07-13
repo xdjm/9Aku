@@ -40,7 +40,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/library" />
         <activity
-            android:name=".ActivtyCategory"
+            android:name=".ActivityCategory"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/sort" />
         <activity

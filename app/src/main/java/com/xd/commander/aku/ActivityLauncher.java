@@ -23,4 +23,8 @@ public class ActivityLauncher extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

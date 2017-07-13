@@ -91,7 +91,7 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
         }
         //添加图标
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        mBottomBar.mTabLayout.setBackgroundColor(sharedPreferences.getInt("theme", 1) == 1 ? Color.WHITE : ContextCompat.getColor(getContext(),R.color.color_qianhei));
+        mBottomBar.mTabLayout.setBackgroundColor(sharedPreferences.getInt("theme", 1) == 1 ? Color.WHITE : ContextCompat.getColor(getContext(), R.color.color_qianhei));
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_sort))
                 .addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_all))
                 .addItem(new BottomBarTab(this, R.drawable.vector_bmnavi_collect))
@@ -166,7 +166,7 @@ public class ActivityMain extends BaseActivity implements BaseFragment.OnBackToF
 
     @Override
     public void onBackPressed() {
-        if (mBottomBar.mCurrentPosition!=0) {
+        if (mBottomBar.mCurrentPosition != 0) {
             mBottomBar.setCurrentItem(0);
         } else {
             startActivity(new Intent(Intent.ACTION_MAIN)

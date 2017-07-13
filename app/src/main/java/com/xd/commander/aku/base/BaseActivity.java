@@ -36,7 +36,9 @@ public abstract class BaseActivity extends SupportActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         int theme;
+        //主题设置
         if (savedInstanceState == null) {
             theme = ThemeUtil.getAppTheme(getActivity());
         } else {

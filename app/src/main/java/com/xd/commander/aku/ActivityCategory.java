@@ -16,15 +16,18 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xd.commander.aku.adapter.AdapterItem;
 import com.xd.commander.aku.base.BaseActivity;
 import com.xd.commander.aku.bean.Project;
 import com.xd.commander.aku.constants.Constants;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +39,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
 import static com.xd.commander.aku.api.RetrofitHttp.createService;
 import static com.xd.commander.aku.util.HanHua.toHanHua;
 
-public class ActivtyCategory extends BaseActivity {
+public class ActivityCategory extends BaseActivity {
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.mRecyclerView)
@@ -55,8 +59,8 @@ public class ActivtyCategory extends BaseActivity {
     private AdapterItem adapterItem;
     private Bundle bundle;
     private List<Project> list;
-    private String[] fenlei ={"注册时间","最近更新","评价","名称"};
-    private String[] paixu = {"?sort=created","?sort=updated","?sort=rating","?sort=name"};
+    private String[] fenlei = {"注册时间", "最近更新", "评价", "名称"};
+    private String[] paixu = {"?sort=created", "?sort=updated", "?sort=rating", "?sort=name"};
 
     @Override
     protected int getLayoutId() {
@@ -65,7 +69,7 @@ public class ActivtyCategory extends BaseActivity {
 
     @Override
     protected Context getActivity() {
-        return ActivtyCategory.this;
+        return ActivityCategory.this;
     }
 
     @Override
@@ -83,7 +87,7 @@ public class ActivtyCategory extends BaseActivity {
         }
         dealStatusBar();
         bundle = getIntent().getExtras();
-        if(Objects.equals(bundle.getString("what"), "搜索"))
+        if (Objects.equals(bundle.getString("what"), "搜索"))
             sort.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(true);
         getCategoryData(bundle.getString("url"));
@@ -94,7 +98,7 @@ public class ActivtyCategory extends BaseActivity {
                 getCategoryData(bundle.getString("url"));
             }
         });
-        content.setText(bundle.getString("what")+":"+bundle.getString("category"));
+        content.setText(bundle.getString("what") + ":" + bundle.getString("category"));
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +114,7 @@ public class ActivtyCategory extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         swipeRefreshLayout.setRefreshing(true);
-                        getCategoryData(bundle.getString("url")+paixu[which]);
+                        getCategoryData(bundle.getString("url") + paixu[which]);
                         dialog.dismiss();
                     }
                 });
@@ -235,6 +239,7 @@ public class ActivtyCategory extends BaseActivity {
                     }
                 });
     }
+
     private void dealStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int statusBarHeight = getStatusBarHeight();
@@ -243,6 +248,7 @@ public class ActivtyCategory extends BaseActivity {
             v.setLayoutParams(lp);
         }
     }
+
     private int getStatusBarHeight() {
         Class<?> c;
         Object obj;

@@ -1,10 +1,6 @@
 package com.xd.commander.aku.fragment.second_all;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import com.xd.commander.aku.R;

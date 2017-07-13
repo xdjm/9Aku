@@ -52,7 +52,6 @@ public interface RetrofitApi {
      * @return 搜索结果or分类
      */
     //https://android-arsenal.com/tag/240?category=1
-    //
     @GET
     Observable<ResponseBody> getSortProject(
             @Url String http
@@ -61,6 +60,4 @@ public interface RetrofitApi {
     //有的项目名称中带有空格，导致跳转markedown失败，解决方案为在把项目名称中带有空格的换成-
     @GET
     Observable<Repos> getRepos(@Url String net);
-    @GET
-    Observable<ResponseBody> getMarkdown(@Url String http);
 }

@@ -36,22 +36,22 @@ import com.xd.commander.aku.bean.GitHubUserInfo;
 import com.xd.commander.aku.bean.Project;
 import com.xd.commander.aku.bean.Repos;
 import com.xd.commander.aku.constants.Constants;
-import com.xd.commander.aku.util.BlurTransformation;
 import com.xd.commander.aku.util.HanHua;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import okhttp3.ResponseBody;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -152,7 +152,7 @@ public class ActivityDetail extends BaseActivity {
     }
 
     private void getAuthor() {
-        createService(getContext(),Constants.GitHub).getUserInfo(bundle.getString("author"))
+        createService(getContext(), Constants.GitHub).getUserInfo(bundle.getString("author"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<GitHubUserInfo>() {
@@ -272,7 +272,7 @@ public class ActivityDetail extends BaseActivity {
          * https://codeload.github.com/esafirm/RxDownloader/zip/master
          */
         RxDownloader.getInstance(this)
-                .download("https://codeload.github.com/" + bundle.getString("author") + "/" + bundle.getString("project") + "/" + "zip/master", bundle.getString("project") + "-master.zip", "application/x-gzip")
+                .download(Constants.GitHubSource + bundle.getString("author") + "/" + bundle.getString("project") + "/" + "zip/master", bundle.getString("project") + "-master.zip", "application/x-gzip")
                 .subscribe(new Subscriber<String>() {
                                @Override
                                public void onStart() {
@@ -310,6 +310,7 @@ public class ActivityDetail extends BaseActivity {
                            }
                 );
     }
+
     private void share(String title, String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -318,6 +319,7 @@ public class ActivityDetail extends BaseActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(Intent.createChooser(intent, getTitle()));
     }
+
     private Intent getImageFileIntent(String param) {
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
@@ -326,6 +328,7 @@ public class ActivityDetail extends BaseActivity {
         intent.setDataAndType(uri, "application/x-gzip");
         return intent;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode != 0) return;
@@ -333,6 +336,7 @@ public class ActivityDetail extends BaseActivity {
             DownloadSource();
         }
     }
+
     private void CheckPermission() {
         final String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         int permissionCheck = ContextCompat.checkSelfPermission(this, permission);

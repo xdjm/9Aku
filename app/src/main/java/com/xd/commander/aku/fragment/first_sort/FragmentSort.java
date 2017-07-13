@@ -26,7 +26,7 @@ import android.widget.PopupWindow;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.xd.commander.aku.ActivtyCategory;
+import com.xd.commander.aku.ActivityCategory;
 import com.xd.commander.aku.R;
 import com.xd.commander.aku.base.BaseFragment;
 import com.xd.commander.aku.constants.Constants;
@@ -47,7 +47,6 @@ public class FragmentSort extends BaseFragment {
     @BindView(R.id.side_view)
     WaveSideBarView sideView;
     private LinearLayoutManager mLayoutManager;
-    private int mScrollTotal;
 
     @Override
     protected int getLayoutId() {
@@ -137,7 +136,6 @@ public class FragmentSort extends BaseFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                mScrollTotal += dy;
                 if (dy > 5) {
                     floatingActionButton.hide();
                 } else if (dy < -5) {
@@ -183,14 +181,14 @@ public class FragmentSort extends BaseFragment {
         });
     }
     private void goToSearchActivity(int site,int pos) {
-        Intent intent = new Intent(getContext(), ActivtyCategory.class);
+        Intent intent = new Intent(getContext(), ActivityCategory.class);
         intent.putExtra("url", "tag/" + site);
         intent.putExtra("category", Constants.hanhua[pos]);
         intent.putExtra("what", "分类");
         startActivity(intent);
     }
     private void goSearchActivity(String searchInfo) {
-        Intent intent = new Intent(getContext(), ActivtyCategory.class);
+        Intent intent = new Intent(getContext(), ActivityCategory.class);
         intent.putExtra("url", "search?q=" + searchInfo);
         intent.putExtra("category", searchInfo);
         intent.putExtra("what", "搜索");

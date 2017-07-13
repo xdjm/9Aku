@@ -1,14 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/collect"
-        android:title="@string/action_change_colors"
+    <item
+        android:title="1"
+        android:id="@+id/collect"
         android:icon="@drawable/vector_faboption_collect"/>
-    <item android:id="@+id/details"
-        android:title="@string/action_change_colors"
+    <item
+        android:title="2"
+        android:id="@+id/details"
         android:icon="@drawable/vector_faboption_detail"/>
-    <item android:id="@+id/download"
-        android:title="@string/action_change_colors"
+    <item
+        android:id="@+id/download"
+        android:title="3"
         android:icon="@drawable/vector_faboption_download"/>
-    <item android:id="@+id/share"
-        android:title="@string/action_change_colors"
+    <item
+        android:id="@+id/share"
+        android:title="4"
         android:icon="@drawable/vector_faboption_share"/>
 </menu>

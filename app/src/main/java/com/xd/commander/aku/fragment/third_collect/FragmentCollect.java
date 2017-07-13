@@ -64,8 +64,8 @@ public class FragmentCollect extends BaseFragment {
 
     private void onFresh() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        list = DataSupport.findAll(Project.class);
         setSwipeDrag();
+        list = DataSupport.findAll(Project.class);
         adapterItem = new AdapterDragOrSwipeItem(list);
         if (list.size()==0){
             adapterItem.addHeaderView(getEmptyLayout(bundle));
@@ -140,9 +140,7 @@ public class FragmentCollect extends BaseFragment {
                         show(DataSupport.findAll(Project.class).size() + "");
                     }
                 });
-                if (list.size()==0){
-                    adapterItem.addHeaderView(getEmptyLayout(bundle));
-                }
+                onFresh();
             }
 
             @Override

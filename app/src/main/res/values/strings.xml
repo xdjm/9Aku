@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">AKu</string>
-    <string name="action_change_colors">change style</string>
     <string name="library">开源相关</string>
     <string name="sort">分类</string>
-    <string name="app_details">拥有工具、框架和演示的Android开发人员门户</string>
     <string name="share_info">分享一个Android开源库</string>
     <string name="netauthor">弗拉迪斯拉夫·鲍尔</string>
     <string name="netauthor_">网站作者</string>

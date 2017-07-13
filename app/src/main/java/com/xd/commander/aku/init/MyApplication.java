@@ -7,16 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tencent.bugly.Bugly;
 import com.xd.commander.aku.constants.Constants;
-
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 public class MyApplication extends Application implements Application.ActivityLifecycleCallbacks {
     /**
      * 初始化，定义全局上下文

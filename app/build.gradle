@@ -2,13 +2,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
-
     defaultConfig {
         applicationId "com.xd.commander.aku"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 4
-        versionName "1.2"
+        versionCode 6
+        versionName "1.4"
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
         resConfigs "zh"
@@ -17,7 +16,6 @@ android {
                     abiFilters"arm64-v8a"
                     abiFilters"armeabi-v7a"
                    abiFilters"x86"
-                   // abiFilters"x86_64"
                 }
         vectorDrawables.useSupportLibrary = true
     }
@@ -28,6 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+            zipAlignEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -66,11 +65,9 @@ dependencies {
     compile 'com.pgyersdk:sdk:2.5.6'
 
     //腾讯Bugly
-    compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-    //utils
-    //debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.23'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.24'
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'org.litepal.android:core:1.5.1'
     compile 'com.jakewharton:butterknife:8.5.1'
