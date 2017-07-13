@@ -50,9 +50,9 @@ public class FragmentOther extends BaseFragment {
     private SharedPreferences.Editor editor;
 
     private OnNetChangeListener onNetChangeListener;
-    private final String[] other_tv = { "清除缓存","开源相关","意见反馈","检查更新","关于作者"};
+    private final String[] other_tv = { "清除缓存","开源相关","意见反馈","检查更新","加入组织","项目地址","关于作者"};
     private final int[] other_iv = {
-             R.drawable.ic_delete_black_24dp,R.drawable.vector_navi_openedcode,R.drawable.vector_navi_crash,R.drawable.ic_system_update_black_24dp, R.drawable.ic_person_black_24dp};
+             R.drawable.ic_delete_black_24dp,R.drawable.vector_navi_openedcode,R.drawable.vector_navi_crash,R.drawable.ic_system_update_black_24dp,R.drawable.ic_people_black_24dp,R.drawable.ic_edit_location_black_24dp, R.drawable.ic_person_black_24dp};
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_other;
@@ -90,11 +90,20 @@ public class FragmentOther extends BaseFragment {
                         Beta.checkUpgrade();
                         break;
                     case 4:
-                        //TODO 介绍自己
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        Uri uri = Uri.parse("https://github.com/xdjm");
+                        Uri uri = Uri.parse("https://jq.qq.com/?_wv=1027&k=4BkCDgk");
                         intent.setData(uri);
                         startActivity(intent);
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+                        //TODO 介绍自己
+                        Intent intentt = new Intent(Intent.ACTION_VIEW);
+                        Uri urii = Uri.parse("https://github.com/xdjm");
+                        intentt.setData(urii);
+                        startActivity(intentt);
                         break;
                 }
             }
@@ -120,7 +129,7 @@ public class FragmentOther extends BaseFragment {
             }
         });
     }
-    private final String[] other_tag = {"", "","","当前版本1.2",""};
+    private final String[] other_tag = {"", "","","当前版本1.4",""};
     private List<Other> getList() {
         List<Other> list = new ArrayList<>();
         for (int i = 0; i <5; i++) {

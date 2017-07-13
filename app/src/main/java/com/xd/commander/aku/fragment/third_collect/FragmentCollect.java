@@ -1,6 +1,7 @@
 package com.xd.commander.aku.fragment.third_collect;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ViewListener;
 import com.xd.commander.aku.ActivityDetail;
 import com.xd.commander.aku.R;
@@ -45,11 +47,18 @@ public class FragmentCollect extends BaseFragment {
     private OnItemDragListener listener;
     private List<Project> list;
     private Bundle bundle;
-    private final String[] title = {"实现一个清新美观的加载按钮", "Android热修复——Tinker", "自定义进度条PictureProgressBar"};
-    private final String[] imgID = {"http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt7ouJwsjCmXx11tWqNxX9ERSMs9uA85DKRq4ZULot8z8MbwTUq2a69VIciaRmfGsLZ6T4yYGkWxTnw/0?wx_fmt=jpeg"
-            , "http://mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt79QTAYwuGj1IySOhRedYYacX545tJW90g69nauhnrl15ImMnibdV97BWTBibQ7ZicPlmvRXJQ9HeBrA/0?wx_fmt=png"
-            , "http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt5y8xhrxkshbia47BglCKkibD23WB5edSL9fItX7aPRcKYGic94bsOdddd8dI1HnIUVPuAyNunBzhJ3w/0?wx_fmt=jpeg"};
+    private final String[] title = {"可展开和收起的LinearLayout","原创 Android中常用的4中线程池","Android倒计时控件实现", "ConstraintLayout属性详解和Chain的使用", "智能语音输入查询天气app"};
+    private final String[] imgID = {"http://mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt4PWoJND1N6WASs01L4UK4qLCnvCRoTes6YQkxoGXFCp60eKwbzwqBXrpXY2icbMcYdqTbMbBJR3ag/0?wx_fmt=png",
+            "http://mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt5WbhwA0jxJw40vASpTibkJfvB3feJSR5ialhM4058a1yt2IxXFgSrrwfebrnZREmCQiaUY1qFWrZ7Eg/0?wx_fmt=png",
+            "http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt55PHdXMdJ44aB0yWfdqicG5X0Ile9TXs5aYO4O5kNPl6AKgAicZNYwJlRiaV2mN6FEjK8pKUIhpAtUg/0?wx_fmt=jpeg"
+            , "http://mmbiz.qpic.cn/mmbiz_png/v1LbPPWiaSt79C3NyucAOmzzXzrUOEwG9CbNicklbEnmNRRhUHk8Ss5iaiaae5IgoZEYbzH89PrmJEf9DRK35aWqcQ/0?wx_fmt=png"
+            , "http://mmbiz.qpic.cn/mmbiz_jpg/v1LbPPWiaSt5IwHRBbdlrkd6p0pJYIFRpokfhHyLy8uUpibMhdU43w6HeWRBR8n1iaINzM4ib19O9sCHV749AahkzA/0?wx_fmt=jpeg"};
 
+    private final String[] bannerNet={"https://mp.weixin.qq.com/s?timestamp=1499943387&src=3&ver=1&signature=d4Ji9q4Wdqup9TIui745LkOyFtyruu5mwrDdntFjG1nRch9eCr15aHbyjvV1IM7CG8*hOSPrOlxF1dZPlCjN8ZuffyQPwyjVyIn2SzMcgmC*fHQO5g-mt2x3-NUxFIPuRgVmPFODmwPhHeMtxMQzFXmNfLkKwIci-LyUI51jCfQ=",
+            "https://mp.weixin.qq.com/s?timestamp=1499943039&src=3&ver=1&signature=d4Ji9q4Wdqup9TIui745LkkAaUKTF7Xmq-VQRkMe*Bc2P4-Qwmtafe5yfHGvr7JTVk8r4lVO2xlqXOe5YaF11gCMpWPZQ0Lps1zKKN9E0ku2fkb*ql-aQTHCztJ*QWUzVrm7SWZXCGGBHKh-T8i5fJ0Rk5klDAfnMNUO6fW5fZg=",
+            "https://mp.weixin.qq.com/s?timestamp=1499943387&src=3&ver=1&signature=d4Ji9q4Wdqup9TIui745LkOyFtyruu5mwrDdntFjG1nRch9eCr15aHbyjvV1IM7CG8*hOSPrOlxF1dZPlCjN8Vb5RaK5aVmFqRn6CggXX0A1NMkgitXuXK649B-j6HatsXr-7fFWgi8Hh7tsXCt2wjHWkTwMgLe5gnXtxXCbvWc=",
+            "https://mp.weixin.qq.com/s?timestamp=1499943387&src=3&ver=1&signature=d4Ji9q4Wdqup9TIui745LkOyFtyruu5mwrDdntFjG1nRch9eCr15aHbyjvV1IM7CG8*hOSPrOlxF1dZPlCjN8XyLtHUYWs1BrS6ey4dBgNmtQ4S5Ht1qadJVkVDT*m5tq9nY3rrDYw7YAeysaMlZHjSprY3Wo7zjHqTud-Srsqg=",
+            "https://mp.weixin.qq.com/s?timestamp=1499943387&src=3&ver=1&signature=d4Ji9q4Wdqup9TIui745LkOyFtyruu5mwrDdntFjG1nRch9eCr15aHbyjvV1IM7CG8*hOSPrOlxF1dZPlCjN8e7Sula1IAn-EzBbOWfoU2LdC0I6Lx*Ki90VQn7oNjnVV96t*lRjqGxLKgVx9EL6ZT3Z8UG9H4AEcrzO9aOc2Jk="};
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_collect_banner;
@@ -164,6 +173,15 @@ public class FragmentCollect extends BaseFragment {
             }
         };
         carouselView.setViewListener(viewListener);
+        carouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(bannerNet[position]);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
